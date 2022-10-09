@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -36,11 +35,9 @@ public class Course {
     @Column(name = "course_description", nullable = false)
     private String courseDescription;
 
-    @ColumnDefault("0.0")
     @Column(name = "course_price", nullable = false)
     private Double coursePrice;
 
-    @ColumnDefault("0.0")
     @Column(name = "course_rating", nullable = false)
     private Double courseRating;
 
@@ -63,6 +60,7 @@ public class Course {
                 .category(courseRequestDto.getCategory())
                 .author(JwtHelper.getCurrentLoggedInUsername())
                 .coursePrice(courseRequestDto.getCoursePrice())
+                .courseRating(0.0)
                 .build();
 
         return course;

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class CourseRequestDto {
     @NotBlank(message = "Course description can't be blank")
     private String courseDescription;
 
-    @NotBlank(message = "Course price can't be blank")
+    @Positive(message = "Course price can't be negative or zero")
     private Double coursePrice;
 
 }

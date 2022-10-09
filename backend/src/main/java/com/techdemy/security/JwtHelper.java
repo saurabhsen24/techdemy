@@ -38,7 +38,7 @@ public class JwtHelper {
     public String createJwtForClaims(String subject, Map<String,String> claims) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(Instant.now().toEpochMilli());
-        calendar.add(Calendar.MINUTE, jwtExpirationAmount);
+        calendar.add(Calendar.MONTH, jwtExpirationAmount);
 
         this.tokenExpirationDate = calendar.getTime();
 

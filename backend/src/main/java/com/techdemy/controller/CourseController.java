@@ -59,10 +59,10 @@ public class CourseController {
     })
     @PutMapping(value = "/{courseId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<GenericResponse> updateCourse(@RequestBody CourseRequestDto courseRequestDto,
+    public ResponseEntity<GenericResponse> updateCourse(@Valid @RequestBody CourseRequestDto courseRequestDto,
                                              @PathVariable("courseId") Long courseId) {
         log.info("Got request to update course, {}", courseId);
-        courseService.updateCourse(courseRequestDto);
+        courseService.updateCourse(courseId ,courseRequestDto);
         return ResponseEntity.ok(GenericResponse.buildGenericResponse("Course updated successfully"));
     }
 
@@ -85,7 +85,7 @@ public class CourseController {
             @ApiResponse(code = 200, message = "Fetches all courses"),
             @ApiResponse(code = 401, message = "You are not authorized")
     })
-    @GetMapping(value = "/{category}")
+    @GetMapping(value = "/category/{category}")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<CourseResponseDto>> getCoursesByCategory(@PathVariable("category") String category) {
         log.info("Got request to fetch courses by category, {}", category);

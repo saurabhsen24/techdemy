@@ -40,9 +40,10 @@ public class CourseServiceImpl implements CourseService {
 
 
     @Override
-    public void updateCourse(CourseRequestDto courseRequestDto) {
+    public void updateCourse(Long courseId, CourseRequestDto courseRequestDto) {
         log.debug("Updating the course, {}", courseRequestDto.getCourseName());
         Course course = Course.from(courseRequestDto);
+        course.setCourseId(courseId);
         courseRepository.save(course);
     }
 
