@@ -1,19 +1,22 @@
 package com.techdemy.service;
 
-import com.techdemy.entities.Course;
+import com.techdemy.dto.request.CourseRequestDto;
+import com.techdemy.dto.response.CourseResponseDto;
 
 import java.util.List;
 
 public interface CourseService {
 
-    void addCourse(Course course);
+    void saveCourse(CourseRequestDto courseRequestDto);
 
-    Course getCourse(Long courseId);
+    CourseResponseDto getCourse(Long courseId);
 
-    void updateCourse(Course course);
+    void updateCourse(CourseRequestDto courseRequestDto);
 
     void deleteCourse(Long courseId);
 
-    List<Course> getCourses();
+    List<CourseResponseDto> getCoursesByCategory(String category);
+
+    List<CourseResponseDto> getAllCourses();
 
 }

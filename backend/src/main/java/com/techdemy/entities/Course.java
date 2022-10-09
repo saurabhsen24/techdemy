@@ -1,6 +1,9 @@
 package com.techdemy.entities;
 
+import com.techdemy.dto.request.CourseRequestDto;
+import com.techdemy.security.JwtHelper;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -12,7 +15,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "courses")
+@Table(name = "courses", indexes = { @Index(name = "category_index", columnList = "category")})
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Course {
@@ -23,6 +27,9 @@ public class Course {
 
     @Column(name = "author", nullable = false)
     private String author;
+
+    @Column(name = "category", nullable = false)
+    private String category;
     @Column(name = "course_name", nullable = false)
     private String courseName;
 
@@ -37,6 +44,9 @@ public class Course {
     @Column(name = "course_rating", nullable = false)
     private Double courseRating;
 
+    @Column(name = "course_image")
+    private String courseImage;
+
     @Column(name = "created_on")
     @CreationTimestamp
     private LocalDateTime createdOn;
@@ -44,6 +54,19 @@ public class Course {
     @Column(name = "updated_on")
     @UpdateTimestamp
     private LocalDateTime updatedOn;
+
+
+    public static Course from(CourseRequestDto courseRequestDto) {
+        Course course = Course.builder()
+                .courseName(courseRequestDto.getCourseName())
+                .courseDescription(courseRequestDto.getCourseDescription())
+                .category(courseRequestDto.getCategory())
+                .author(JwtHelper.getCurrentLoggedInUsername())
+                .coursePrice(courseRequestDto.getCoursePrice())
+                .build();
+
+        return course;
+    }
 
     public String toString() {
         return "Course { courseId = " + courseId + " , courseName = " + courseName +
