@@ -28,6 +28,8 @@ public class JwtHelper {
     @Value("${jwtExpirationTime}")
     private Integer jwtExpirationAmount;
 
+    private Date tokenExpirationDate;
+
     public JwtHelper(RSAPrivateKey privateKey, RSAPublicKey publicKey) {
         this.privateKey = privateKey;
         this.publicKey = publicKey;
@@ -37,6 +39,8 @@ public class JwtHelper {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(Instant.now().toEpochMilli());
         calendar.add(Calendar.MINUTE, jwtExpirationAmount);
+
+        this.tokenExpirationDate = calendar.getTime();
 
         JWTCreator.Builder jwtBuilder = JWT.create().withSubject(subject);
         claims.forEach(jwtBuilder::withClaim);
@@ -55,8 +59,8 @@ public class JwtHelper {
         return claims.get(Constants.CLAIMS_USERNAME).toString();
     }
 
-    public String getTokenExpirationTime() {
-        return jwtExpirationAmount + Constants.MONTH;
+    public Date getTokenExpirationDate() {
+        return this.tokenExpirationDate;
     }
 
 }
