@@ -98,6 +98,10 @@ public class AuthServiceImpl implements AuthService {
         User user = userService.getUserByEmail(resetPasswordRequest.getEmail());
         user.setPassword(passwordEncoder.encode(resetPasswordRequest.getNewPassword()));
         userService.saveUser(user);
+
+        log.debug("User's {} password updated", user.getUserName());
+        resetTokenService.deleteToken(resetPasswordRequest.getToken());
+
     }
 
     @Override
