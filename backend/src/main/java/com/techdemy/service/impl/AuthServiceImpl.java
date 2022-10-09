@@ -7,6 +7,7 @@ import com.techdemy.dto.request.SignupRequest;
 import com.techdemy.dto.response.AuthResponse;
 import com.techdemy.dto.response.GenericResponse;
 import com.techdemy.entities.User;
+import com.techdemy.enums.Role;
 import com.techdemy.exception.BadRequestException;
 import com.techdemy.security.JwtHelper;
 import com.techdemy.service.AuthService;
@@ -77,6 +78,7 @@ public class AuthServiceImpl implements AuthService {
                 .userName(signupRequest.getUsername())
                 .password(passwordEncoder.encode(signupRequest.getPassword()))
                 .email(signupRequest.getEmail())
+                .role(Role.USER)
                 .build();
 
         userService.saveUser(user);
@@ -99,7 +101,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void forgetRequest(ForgetPasswordRequest forgetPasswordRequest) {
+    public void forgetPassword(ForgetPasswordRequest forgetPasswordRequest) {
         log.debug("Forget password for user {}", forgetPasswordRequest.getEmail());
         User user = userService.getUserByEmail(forgetPasswordRequest.getEmail());
         resetTokenService.generateToken(user);

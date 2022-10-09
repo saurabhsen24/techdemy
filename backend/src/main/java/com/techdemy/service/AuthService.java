@@ -11,6 +11,6 @@ public interface AuthService {
     AuthResponse loginUser(LoginRequest loginRequest);
     GenericResponse signupUser(SignupRequest signupRequest);
     void resetPassword( ResetPasswordRequest resetPasswordRequest );
-    void forgetRequest(ForgetPasswordRequest forgetPasswordRequest);
+    void forgetPassword(ForgetPasswordRequest forgetPasswordRequest);
 
 }
