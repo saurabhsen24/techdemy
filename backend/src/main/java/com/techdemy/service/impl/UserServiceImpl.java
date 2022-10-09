@@ -38,6 +38,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByEmail( String email ) {
+        log.debug("Fetch user details for user {}", email);
+
+        User user = userRepository.findByEmail(email).orElseThrow(() ->
+                new ResourceNotFoundException("User not found"));
+
+        return user;
+    }
+
+    @Override
     public Boolean checkIfUserExistsByUsernameOrEmail(String userName, String email) {
         return userRepository.existsByUserNameOrEmail(userName, email);
     }

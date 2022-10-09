@@ -10,6 +10,7 @@ import com.techdemy.entities.User;
 import com.techdemy.exception.BadRequestException;
 import com.techdemy.security.JwtHelper;
 import com.techdemy.service.AuthService;
+import com.techdemy.service.ResetTokenService;
 import com.techdemy.service.UserService;
 import com.techdemy.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +35,10 @@ public class AuthServiceImpl implements AuthService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtHelper jwtHelper;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ResetTokenService resetTokenService;
 
     @Override
     public AuthResponse loginUser(LoginRequest loginRequest) {
@@ -88,11 +90,18 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void resetPassword(ResetPasswordRequest resetPasswordRequest) {
+        log.debug("Resets password for user {}", resetPasswordRequest.getEmail());
+        resetTokenService.validateResetToken(resetPasswordRequest.getToken());
 
+        User user = userService.getUserByEmail(resetPasswordRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(resetPasswordRequest.getNewPassword()));
+        userService.saveUser(user);
     }
 
     @Override
     public void forgetRequest(ForgetPasswordRequest forgetPasswordRequest) {
-
+        log.debug("Forget password for user {}", forgetPasswordRequest.getEmail());
+        User user = userService.getUserByEmail(forgetPasswordRequest.getEmail());
+        resetTokenService.generateToken(user);
     }
 }

@@ -7,8 +7,8 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class ResetPasswordRequest {
 
-    @NotEmpty(message = "Otp can't be empty")
-    private String otp;
+    @NotEmpty(message = "Token can't be empty")
+    private String token;
 
     @NotEmpty(message = "Email can't be empty")
     private String email;
