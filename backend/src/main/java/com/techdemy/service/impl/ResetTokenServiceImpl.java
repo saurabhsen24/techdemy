@@ -64,6 +64,12 @@ public class ResetTokenServiceImpl implements ResetTokenService {
 
     }
 
+    @Override
+    @Async
+    public void deleteToken( String token ) {
+        resetTokenRepository.deleteByToken(token);
+    }
+
     @Async
     private void sendMail( EmailRequest emailRequest ) {
         log.debug("Sending message {} through mail for user {}", emailRequest.getMessage(), emailRequest.getTo());

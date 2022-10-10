@@ -5,6 +5,7 @@ import com.techdemy.entities.User;
 public interface ResetTokenService {
 
     void generateToken(User user);
-
     void validateResetToken(String token);
+    void deleteToken( String token );
+
 }
