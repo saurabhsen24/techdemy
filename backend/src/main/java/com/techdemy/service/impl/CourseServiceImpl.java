@@ -1,6 +1,7 @@
 package com.techdemy.service.impl;
 
 import com.techdemy.dto.request.CourseRequestDto;
+import com.techdemy.dto.response.CategoryDTO;
 import com.techdemy.dto.response.CourseResponseDto;
 import com.techdemy.entities.Course;
 import com.techdemy.exception.BadRequestException;
@@ -51,6 +52,12 @@ public class CourseServiceImpl implements CourseService {
     public void deleteCourse(Long courseId) {
         log.info("Deleting course with courseId {}", courseId);
         courseRepository.deleteById( courseId );
+    }
+
+    @Override
+    public List<CategoryDTO> getAllCategories() {
+        log.debug("Fetches all categories");
+        return courseRepository.getAllCategories();
     }
 
     @Override

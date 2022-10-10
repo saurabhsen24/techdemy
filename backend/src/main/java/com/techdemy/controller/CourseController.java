@@ -1,6 +1,7 @@
 package com.techdemy.controller;
 
 import com.techdemy.dto.request.CourseRequestDto;
+import com.techdemy.dto.response.CategoryDTO;
 import com.techdemy.dto.response.CourseResponseDto;
 import com.techdemy.dto.response.GenericResponse;
 import com.techdemy.service.CourseService;
@@ -80,12 +81,23 @@ public class CourseController {
         return ResponseEntity.ok(GenericResponse.buildGenericResponse("Course deleted successfully"));
     }
 
+    @ApiOperation(value = "Get all categories")
+    @ApiResponses(value = {
+            @ApiResponse( code = 200 , message = "Fetches all categories" ),
+            @ApiResponse(code = 401, message = "You are not authorized")
+    })
+    @GetMapping(value = "/categories")
+    public ResponseEntity<List<CategoryDTO>> getCategories(){
+        log.info("Fetches all categories");
+        return ResponseEntity.ok(courseService.getAllCategories());
+    }
+
     @ApiOperation(value = "Fetches courses by category")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Fetches all courses"),
             @ApiResponse(code = 401, message = "You are not authorized")
     })
-    @GetMapping(value = "/category/{category}")
+    @GetMapping(value = "/categories/{category}")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<CourseResponseDto>> getCoursesByCategory(@PathVariable("category") String category) {
         log.info("Got request to fetch courses by category, {}", category);
