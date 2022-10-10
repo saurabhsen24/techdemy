@@ -1,7 +1,9 @@
 package com.techdemy.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.techdemy.dto.request.ReviewRequestDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "reviews", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "course_id"}))
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
@@ -24,7 +27,7 @@ public class Review {
     private Long reviewId;
 
     @Column(name = "review_comment")
-    private String reviewContent;
+    private String reviewComment;
 
     @Column(name = "rating")
     private Integer rating;
