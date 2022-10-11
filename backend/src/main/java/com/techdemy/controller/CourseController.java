@@ -98,7 +98,6 @@ public class CourseController {
             @ApiResponse(code = 401, message = "You are not authorized")
     })
     @GetMapping(value = "/categories/{category}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<CourseResponseDto>> getCoursesByCategory(@PathVariable("category") String category) {
         log.info("Got request to fetch courses by category, {}", category);
         return ResponseEntity.ok(courseService.getCoursesByCategory(category.trim()));
@@ -110,7 +109,6 @@ public class CourseController {
             @ApiResponse(code = 401, message = "You are not authorized")
     })
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<CourseResponseDto>> getAllCourses() {
         log.info("Got request to fetch all courses");
         return ResponseEntity.ok(courseService.getAllCourses());

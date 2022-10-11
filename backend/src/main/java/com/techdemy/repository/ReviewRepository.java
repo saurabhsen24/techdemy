@@ -25,13 +25,17 @@ public interface ReviewRepository extends JpaRepository<Review,Long> {
             "r.user_id = u.user_id WHERE r.review_id=:reviewId", nativeQuery = true)
     Optional<ReviewResponseDto> getReview(@Param("reviewId") Long reviewId );
 
-
     @Modifying
     @Transactional
     @Query(value = "UPDATE review SET review_comment=:reviewComment, rating=:rating " +
-            "WHERE review_id=:reviewId", nativeQuery = true)
-    void updateReview(@Param("reviewComment") String reviewComment, @Param("rating") Integer rating,
-                      @Param("reviewId") Long reviewId);
+            "WHERE review_id=:reviewId AND user_id=:userId", nativeQuery = true)
+    int updateReview(@Param("reviewComment") String reviewComment, @Param("rating") Integer rating,
+                      @Param("reviewId") Long reviewId, @Param("userId") Long userId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM review WHERE review_id=:reviewId AND user_id=:userId", nativeQuery = true)
+    int deleteReview(@Param("reviewId") Long reviewId, @Param("userId") Long userId);
 
     @Query(value = "SELECT r.review_id, u.user_name as userName, r.review_comment as reviewComment, r.rating as rating FROM " +
             "review r INNER JOIN user u ON r.user_id = u.user_id WHERE r.course_id=:courseId", nativeQuery = true)

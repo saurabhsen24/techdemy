@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.techdemy.utils.Constants;
+import com.techdemy.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -53,9 +54,12 @@ public class JwtHelper {
     }
 
     public static String getCurrentLoggedInUsername() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        JwtAuthenticationToken token = (JwtAuthenticationToken) authentication;
-        Map<String,Object> claims = token.getTokenAttributes();
+        Map<String,Object> claims = Utils.getClaims();
+        return claims.get(Constants.CLAIMS_USERNAME).toString();
+    }
+
+    public static String getCurrentLoggedInUserId() {
+        Map<String,Object> claims = Utils.getClaims();
         return claims.get(Constants.CLAIMS_USERNAME).toString();
     }
 

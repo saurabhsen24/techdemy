@@ -6,6 +6,7 @@ import com.techdemy.entities.Course;
 import com.techdemy.entities.Review;
 import com.techdemy.entities.User;
 import com.techdemy.exception.BadRequestException;
+import com.techdemy.exception.ForbiddenResourceException;
 import com.techdemy.exception.ResourceNotFoundException;
 import com.techdemy.repository.CourseRepository;
 import com.techdemy.repository.ReviewRepository;
@@ -69,13 +70,26 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void deleteReview(Long reviewId) {
         log.debug("Deleting review comment {}", reviewId);
-        reviewRepository.deleteById( reviewId );
+        Long userId = Long.parseLong(JwtHelper.getCurrentLoggedInUserId());
+
+        int numberOfDeletedRecords = reviewRepository.deleteReview(reviewId,userId);
+
+        if( numberOfDeletedRecords == 0 ) {
+            throw new ForbiddenResourceException("You are forbidden to delete this review");
+        }
     }
 
     @Override
-    public void update(ReviewRequestDto reviewRequestDto, Long reviewId) {
+    public void updateReview(ReviewRequestDto reviewRequestDto, Long reviewId) {
         log.debug("Updating review comment {}", reviewId);
-        reviewRepository.updateReview(reviewRequestDto.getComment(), reviewRequestDto.getRating(), reviewId);
+        Long userId = Long.parseLong(JwtHelper.getCurrentLoggedInUserId());
+        int numberOfUpdatedRecords = reviewRepository.updateReview(reviewRequestDto.getComment(),
+                reviewRequestDto.getRating(), reviewId, userId);
+
+        if( numberOfUpdatedRecords == 0 ) {
+            throw new ForbiddenResourceException("You are forbidden to update this review");
+        }
+
     }
 
     @Override

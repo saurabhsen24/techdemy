@@ -14,7 +14,7 @@ public interface ReviewService {
 
     void deleteReview(Long reviewId);
 
-    void update(ReviewRequestDto reviewRequestDto, Long reviewId);
+    void updateReview(ReviewRequestDto reviewRequestDto, Long reviewId);
 
     List<ReviewResponseDto> getAllReviews(Long courseId);
 
