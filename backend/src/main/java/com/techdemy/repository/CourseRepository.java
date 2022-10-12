@@ -17,7 +17,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE course SET course_name=:courseName, course_description=:courseDescription, " +
+    @Query(value = "UPDATE courses SET course_name=:courseName, course_description=:courseDescription, " +
             "category=:category, course_price=:coursePrice WHERE course_id=:courseId AND author=:author", nativeQuery = true)
     int updateCourse(@Param("courseName") String courseName, @Param("courseDescription") String courseDescription,
                      @Param("category") String category, @Param("coursePrice") Double coursePrice,
@@ -25,7 +25,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM course WHERE course_id=:courseId AND author=:author",nativeQuery = true)
+    @Query(value = "DELETE FROM courses WHERE course_id=:courseId AND author=:author",nativeQuery = true)
     int deleteCourse(@Param("courseId") Long courseId, @Param("author") String author);
 
     @Query(value = "SELECT DISTINCT course_id as courseId, category from courses GROUP BY category", nativeQuery = true)

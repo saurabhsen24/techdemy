@@ -60,7 +60,7 @@ public class JwtHelper {
 
     public static String getCurrentLoggedInUserId() {
         Map<String,Object> claims = Utils.getClaims();
-        return claims.get(Constants.CLAIMS_USERNAME).toString();
+        return claims.get(Constants.CLAIMS_USERID).toString();
     }
 
     public Date getTokenExpirationDate() {

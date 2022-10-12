@@ -12,7 +12,7 @@ public interface ReviewService {
 
     ReviewResponseDto getReview(Long reviewId);
 
-    void deleteReview(Long reviewId);
+    void deleteReview(Long courseId);
 
     void updateReview(ReviewRequestDto reviewRequestDto, Long reviewId);
 

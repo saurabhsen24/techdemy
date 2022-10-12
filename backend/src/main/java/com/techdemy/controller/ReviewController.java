@@ -44,7 +44,7 @@ public class ReviewController {
             @ApiResponse(code = 200, message = "Review fetched successfully"),
             @ApiResponse(code = 401, message = "You are not authenticated")
     })
-    @GetMapping(value = "/{reviewId}")
+    @GetMapping(value = "/review/{reviewId}")
     public ResponseEntity<ReviewResponseDto> getReview(@PathVariable("reviewId") Long reviewId) {
         log.info("Got request to fetch review {}", reviewId);
         return ResponseEntity.ok(reviewService.getReview(reviewId));
@@ -57,10 +57,10 @@ public class ReviewController {
             @ApiResponse(code = 403, message = "Forbidden to delete review")
     })
     @PreAuthorize("hasRole('USER')")
-    @DeleteMapping(value = "/{reviewId}")
-    public ResponseEntity<GenericResponse> deleteReview(@PathVariable("reviewId") Long reviewId) {
-        log.info("Got request to delete review {}", reviewId);
-        reviewService.deleteReview(reviewId);
+    @DeleteMapping(value = "/{courseId}")
+    public ResponseEntity<GenericResponse> deleteReview(@PathVariable("courseId") Long courseId) {
+        log.info("Got request to delete review for {}", courseId);
+        reviewService.deleteReview(courseId);
         return ResponseEntity.ok(GenericResponse.buildGenericResponse("Review deleted successfully"));
     }
 
@@ -71,11 +71,11 @@ public class ReviewController {
             @ApiResponse(code = 403, message = "Forbidden to delete review")
     })
     @PreAuthorize("hasRole('USER')")
-    @PutMapping(value = "/{reviewId}")
+    @PutMapping(value = "/{courseId}")
     public ResponseEntity<GenericResponse> updateReview(@Valid @RequestBody ReviewRequestDto reviewRequestDto ,
-                                                        @PathVariable("reviewId") Long reviewId) {
-        log.info("Got request to update review {}", reviewId);
-        reviewService.updateReview(reviewRequestDto, reviewId);
+                                                        @PathVariable("courseId") Long courseId) {
+        log.info("Got request to update review for course {}", courseId);
+        reviewService.updateReview(reviewRequestDto, courseId);
         return ResponseEntity.ok(GenericResponse.buildGenericResponse("Review updated successfully"));
     }
 

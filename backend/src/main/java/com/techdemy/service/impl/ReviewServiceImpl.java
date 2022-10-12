@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -68,28 +69,50 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void deleteReview(Long reviewId) {
-        log.debug("Deleting review comment {}", reviewId);
+    @Transactional
+    public void deleteReview(Long courseId) {
+        log.debug("Deleting review comment for course {}", courseId);
         Long userId = Long.parseLong(JwtHelper.getCurrentLoggedInUserId());
 
-        int numberOfDeletedRecords = reviewRepository.deleteReview(reviewId,userId);
+        int numberOfDeletedRecords = reviewRepository.deleteReview(courseId , userId);
 
         if( numberOfDeletedRecords == 0 ) {
             throw new ForbiddenResourceException("You are forbidden to delete this review");
         }
+
+        Course course = courseRepository.findById(courseId).orElseThrow(() ->
+                new ResourceNotFoundException("Course not found"));
+
+        Double avgRating = reviewRepository.findAvgRatingByCourseId(courseId);
+
+        avgRating = Objects.isNull( avgRating ) ? 0 : avgRating;
+
+        log.debug("Average rating of course {} is {}", courseId, avgRating);
+
+        course.setCourseRating(avgRating);
+        courseRepository.save(course);
     }
 
     @Override
-    public void updateReview(ReviewRequestDto reviewRequestDto, Long reviewId) {
-        log.debug("Updating review comment {}", reviewId);
+    @Transactional
+    public void updateReview(ReviewRequestDto reviewRequestDto, Long courseId) {
+        log.debug("Updating review comment for course {}", courseId);
         Long userId = Long.parseLong(JwtHelper.getCurrentLoggedInUserId());
         int numberOfUpdatedRecords = reviewRepository.updateReview(reviewRequestDto.getComment(),
-                reviewRequestDto.getRating(), reviewId, userId);
+                reviewRequestDto.getRating(), courseId, userId);
 
         if( numberOfUpdatedRecords == 0 ) {
             throw new ForbiddenResourceException("You are forbidden to update this review");
         }
 
+        Course course = courseRepository.findById(courseId).orElseThrow(() ->
+                new ResourceNotFoundException("Course not found"));
+        Double avgRating = reviewRepository.findAvgRatingByCourseId(courseId);
+
+        log.debug("Average rating of course {} is {}", courseId, avgRating);
+
+        course.setCourseRating(avgRating);
+        courseRepository.save(course);
     }
 
     @Override
