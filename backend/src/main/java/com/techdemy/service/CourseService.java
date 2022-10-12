@@ -15,6 +15,7 @@ public interface CourseService {
     void updateCourse(Long courseId, CourseRequestDto courseRequestDto);
 
     void deleteCourse(Long courseId);
+
     List<CategoryDTO> getAllCategories();
 
     List<CourseResponseDto> getCoursesByCategory(String category);

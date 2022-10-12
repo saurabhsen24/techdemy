@@ -53,6 +53,8 @@ public class AuthServiceImpl implements AuthService {
 
         Map<String,String> claims = new HashMap<>();
         User user = userService.getUserByUserName(loginRequest.getUserName());
+
+        claims.put(Constants.CLAIMS_USERID, user.getUserId().toString());
         claims.put(Constants.CLAIMS_USERNAME, loginRequest.getUserName());
         claims.put(Constants.AUTHORITIES_CLAIM_NAME, user.getRole().name());
 

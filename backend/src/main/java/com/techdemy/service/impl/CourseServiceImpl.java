@@ -5,8 +5,10 @@ import com.techdemy.dto.response.CategoryDTO;
 import com.techdemy.dto.response.CourseResponseDto;
 import com.techdemy.entities.Course;
 import com.techdemy.exception.BadRequestException;
+import com.techdemy.exception.ForbiddenResourceException;
 import com.techdemy.exception.ResourceNotFoundException;
 import com.techdemy.repository.CourseRepository;
+import com.techdemy.security.JwtHelper;
 import com.techdemy.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -43,15 +45,31 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void updateCourse(Long courseId, CourseRequestDto courseRequestDto) {
         log.debug("Updating the course, {}", courseRequestDto.getCourseName());
-        Course course = Course.from(courseRequestDto);
-        course.setCourseId(courseId);
-        courseRepository.save(course);
+
+        String currentLoggedInUser = JwtHelper.getCurrentLoggedInUsername();
+
+        int numberOfUpdatedRecord = courseRepository.updateCourse(courseRequestDto.getCourseName(),
+                courseRequestDto.getCourseDescription(), courseRequestDto.getCategory(),
+                courseRequestDto.getCoursePrice(), courseId, currentLoggedInUser );
+
+        if( numberOfUpdatedRecord == 0 ) {
+            throw new ForbiddenResourceException("You are forbidden to update course");
+        }
+
     }
 
     @Override
     public void deleteCourse(Long courseId) {
         log.info("Deleting course with courseId {}", courseId);
-        courseRepository.deleteById( courseId );
+
+        String currentLoggedInUser = JwtHelper.getCurrentLoggedInUsername();
+
+        int numberOfDeletedRecords = courseRepository.deleteCourse(courseId, currentLoggedInUser);
+
+        if( numberOfDeletedRecords == 0 ) {
+            throw new ForbiddenResourceException("You are forbidden to delete course");
+        }
+
     }
 
     @Override

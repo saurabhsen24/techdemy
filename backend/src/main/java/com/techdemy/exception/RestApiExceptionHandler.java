@@ -4,6 +4,7 @@ import com.techdemy.dto.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,7 +15,7 @@ import java.util.Date;
 @RestControllerAdvice
 public class RestApiExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler({ResourceNotFoundException.class, UsernameNotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage handleResourceNotFound(ResourceNotFoundException ex, WebRequest webRequest) {
         ErrorMessage errorMessage = ErrorMessage.builder()
