@@ -55,7 +55,7 @@ public class CourseController {
     @ApiOperation(value = "Updates course")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Updates course successfully"),
-            @ApiResponse(code = 401, message = "You are not authorized"),
+            @ApiResponse(code = 401, message = "You are not authenticated"),
             @ApiResponse(code = 403, message = "You can not access this resource")
     })
     @PutMapping(value = "/{courseId}")
@@ -70,7 +70,7 @@ public class CourseController {
     @ApiOperation(value = "Deletes course")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Updates course successfully"),
-            @ApiResponse(code = 401, message = "You are not authorized"),
+            @ApiResponse(code = 401, message = "You are not authenticated"),
             @ApiResponse(code = 403, message = "You can not access this resource")
     })
     @DeleteMapping(value = "/{courseId}")
@@ -84,7 +84,7 @@ public class CourseController {
     @ApiOperation(value = "Get all categories")
     @ApiResponses(value = {
             @ApiResponse( code = 200 , message = "Fetches all categories" ),
-            @ApiResponse(code = 401, message = "You are not authorized")
+            @ApiResponse(code = 401, message = "You are not authenticated")
     })
     @GetMapping(value = "/categories")
     public ResponseEntity<List<CategoryDTO>> getCategories(){
@@ -95,7 +95,7 @@ public class CourseController {
     @ApiOperation(value = "Fetches courses by category")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Fetches all courses"),
-            @ApiResponse(code = 401, message = "You are not authorized")
+            @ApiResponse(code = 401, message = "You are not authenticated")
     })
     @GetMapping(value = "/categories/{category}")
     public ResponseEntity<List<CourseResponseDto>> getCoursesByCategory(@PathVariable("category") String category) {
@@ -106,7 +106,7 @@ public class CourseController {
     @ApiOperation(value = "Fetches all courses")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Fetches all courses"),
-            @ApiResponse(code = 401, message = "You are not authorized")
+            @ApiResponse(code = 401, message = "You are not authenticated")
     })
     @GetMapping(value = "/all")
     public ResponseEntity<List<CourseResponseDto>> getAllCourses() {
