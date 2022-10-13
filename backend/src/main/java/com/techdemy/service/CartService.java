@@ -1,19 +1,16 @@
 package com.techdemy.service;
 
+import com.techdemy.dto.response.CartDto;
 import com.techdemy.entities.Cart;
 
 import java.util.List;
 
 public interface CartService {
 
-    void saveCart(Cart cart);
+    void addToCart(Long courseId);
 
-    Cart getCart(Long cartId);
+    void removeCourseFromCart(Long courseId);
 
-    void updateCart(Cart cart);
-
-    void deleteCart(Long cartId);
-
-    List<Cart> getCarts();
+    List<CartDto> getAllCartItems();
 
 }

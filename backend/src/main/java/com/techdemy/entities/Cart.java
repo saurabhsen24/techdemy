@@ -2,6 +2,7 @@ package com.techdemy.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "cart", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "course_id"}))
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cart {
