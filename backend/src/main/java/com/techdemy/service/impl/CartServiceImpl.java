@@ -72,6 +72,13 @@ public class CartServiceImpl implements CartService {
 
     }
 
+    @Override
+    public Integer getCartCount() {
+        Long userId = getUserId();
+        log.debug("Get cart count for user {}", userId);
+        return cartRepository.getCartCount(userId);
+    }
+
     private Long getUserId() {
         Long userId = Long.parseLong(JwtHelper.getCurrentLoggedInUserId());;
         return userId;

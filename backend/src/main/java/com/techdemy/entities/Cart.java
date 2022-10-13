@@ -35,13 +35,9 @@ public class Cart {
     @JsonBackReference
     private Course course;
 
-    @ColumnDefault("0.0")
-    @Column(name = "price", nullable = false)
-    private Double price;
-
     @Override
     public String toString() {
-        return "Cart { cartId = " + cartId + " , price = " + price  + " }";
+        return "Cart { cartId = " + cartId +  " }";
     }
 
 }

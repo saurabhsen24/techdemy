@@ -13,4 +13,6 @@ public interface CartService {
 
     List<CartDto> getAllCartItems();
 
+    Integer getCartCount();
+
 }

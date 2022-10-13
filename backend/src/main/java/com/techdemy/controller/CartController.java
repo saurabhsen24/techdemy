@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -41,7 +43,7 @@ public class CartController {
             @ApiResponse(code = 401, message = "You are not authenticated")
     })
     @PreAuthorize("hasRole('USER')")
-    @PostMapping(value = "/{courseId}")
+    @DeleteMapping(value = "/{courseId}")
     public ResponseEntity<GenericResponse> removeFromCart(@PathVariable("courseId") Long courseId) {
         log.info("Got request to remove course {} from cart", courseId);
         cartService.removeCourseFromCart(courseId);
@@ -54,10 +56,25 @@ public class CartController {
             @ApiResponse(code = 401, message = "You are not authenticated")
     })
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<CartDto>> getAllCartItems() {
         log.info("Got request to fetch all cart items");
         return ResponseEntity.ok(cartService.getAllCartItems());
+    }
+
+    @ApiOperation(value = "Gets cart items count", response = Map.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Fetches cart count"),
+            @ApiResponse(code = 401, message = "You are not authenticated")
+    })
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping(value = "/count")
+    public Map<String,Integer> getCartCount() {
+        log.info("Got request to fetch cart count");
+        Map<String,Integer> response = new HashMap<>();
+        Integer cartCount = cartService.getCartCount();
+        response.put("cartCount", cartCount);
+        return response;
     }
 
 }
