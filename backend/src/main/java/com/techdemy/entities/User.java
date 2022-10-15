@@ -2,6 +2,7 @@ package com.techdemy.entities;
 
 import com.techdemy.enums.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "user")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {

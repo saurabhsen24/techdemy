@@ -5,10 +5,13 @@ import com.techdemy.entities.User;
 
 public interface UserService {
 
-    void updateUser( User user );
+    void saveUser(User user);
+    void updateUser(User user );
+    User getUserByUserName( String userName );
+    User getUserByEmail( String email );
 
-    User getUser( Long userId );
+    Boolean checkIfUserExistsByUsernameOrEmail(String userName, String email);
 
-    void deleteUser( Long userId );
+    void deleteUser(Long userId );
 
 }

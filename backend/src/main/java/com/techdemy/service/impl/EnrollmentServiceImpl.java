@@ -1,14 +1,19 @@
 package com.techdemy.service.impl;
 
+import com.techdemy.dto.response.CourseResponseDto;
 import com.techdemy.entities.Enrollment;
 import com.techdemy.exception.ResourceNotFoundException;
 import com.techdemy.repository.EnrollmentRepository;
+import com.techdemy.security.JwtHelper;
 import com.techdemy.service.EnrollmentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
 
@@ -16,29 +21,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     private EnrollmentRepository enrollmentRepository;
 
     @Override
-    public void saveEnrollment(Enrollment enrollment) {
-        enrollmentRepository.save(enrollment);
+    public List<CourseResponseDto> getAllEnrolledCourses() {
+        log.info("Fetches all enrollments");
+
+        Long userId = Long.parseLong(JwtHelper.getCurrentLoggedInUserId());
+        List<CourseResponseDto> enrolledCourses = enrollmentRepository.getAllEnrolledCourses(userId).stream()
+                .map(enrolledCourse -> CourseResponseDto.from(enrolledCourse)).collect(Collectors.toList());
+
+        return enrolledCourses;
     }
 
-    @Override
-    public Enrollment getEnrollment(Long enrollmentId) {
-        Enrollment enrollment = enrollmentRepository.findById( enrollmentId ).orElseThrow(() ->
-                new ResourceNotFoundException("Enrollment noy found"));
-        return enrollment;
-    }
-
-    @Override
-    public void updateEnrollment(Enrollment enrollment) {
-        enrollmentRepository.save(enrollment);
-    }
-
-    @Override
-    public void deleteEnrollment(Long enrollmentId) {
-        enrollmentRepository.deleteById( enrollmentId );
-    }
-
-    @Override
-    public List<Enrollment> getEnrollments() {
-        return enrollmentRepository.findAll();
-    }
 }

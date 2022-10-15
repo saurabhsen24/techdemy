@@ -1,5 +1,7 @@
 package com.techdemy.security;
 
+import com.techdemy.dto.ErrorMessage;
+import com.techdemy.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -8,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 @Slf4j
 public class CustomOAuth2AuthenticationEntryPoint implements AuthenticationEntryPoint {
@@ -17,6 +20,15 @@ public class CustomOAuth2AuthenticationEntryPoint implements AuthenticationEntry
         log.error(ex.getLocalizedMessage(), ex);
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        ErrorMessage errorMessage = ErrorMessage.builder()
+                .statusCode(HttpServletResponse.SC_UNAUTHORIZED)
+                .message("Unauthorized")
+                .description(ex.getMessage())
+                .timestamp(new Date())
+                .build();
+
+        String errorJson = Utils.toJson(errorMessage);
+        response.getWriter().write(errorJson);
     }
 
 }
