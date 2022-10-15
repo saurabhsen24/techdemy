@@ -43,4 +43,11 @@ public class Enrollment {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
+    public static Enrollment from(User user, Course course) {
+        Enrollment enrollment = new Enrollment();
+        enrollment.setUser(user);
+        enrollment.setCourse(course);
+        return enrollment;
+    }
+
 }

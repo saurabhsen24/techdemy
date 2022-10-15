@@ -1,6 +1,8 @@
 package com.techdemy.controller;
 
+import com.techdemy.dto.request.EnrollRequest;
 import com.techdemy.dto.response.CourseResponseDto;
+import com.techdemy.dto.response.GenericResponse;
 import com.techdemy.service.EnrollmentService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -9,9 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +22,17 @@ public class EnrollmentController {
 
     @Autowired
     private EnrollmentService enrollmentService;
+
+    @ApiOperation(value = "Adds enrolled courses")
+    @ApiResponses(value = {
+            @ApiResponse( code = 200, message = "200" ),
+            @ApiResponse( code = 401, message = "You are not authenticated" )
+    })
+    @PostMapping(value = "/courses")
+    public ResponseEntity<Void> addCourses(@RequestBody EnrollRequest enrollRequest) {
+        enrollmentService.addCourses(enrollRequest);
+        return ResponseEntity.ok().build();
+    }
 
     @ApiOperation(value = "Gets all enrolled courses", response = CourseResponseDto.class, responseContainer = "List")
     @ApiResponses(value = {
