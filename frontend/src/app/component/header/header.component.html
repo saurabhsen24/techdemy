@@ -1,0 +1,20 @@
+<mat-toolbar class="mat-elevation-z8 header-color">
+  <a class="btn btn-lg" mat-button routerLink="/">TechDemy</a>
+  <span class="example-spacer"></span>
+  <a class="btn" mat-button routerLink="/login">
+    <mat-icon class="me-1">login</mat-icon>Login
+  </a>
+  <a class="btn" mat-button routerLink="/signup">
+    <mat-icon class="me-1">person_add</mat-icon>Signup
+  </a>
+  <a class="btn" mat-button routerLink="/user" *ngIf="false">
+    <mat-icon class="me-1">person</mat-icon> Username
+  </a>
+  <a class="btn" mat-button routerLink="/createPost" *ngIf="false">
+    <mat-icon class="me-1">add_circle</mat-icon>Create Post
+  </a>
+
+  <button class="btn" mat-button *ngIf="false">
+    <mat-icon class="me-1">logout</mat-icon>Logout
+  </button>
+</mat-toolbar>
