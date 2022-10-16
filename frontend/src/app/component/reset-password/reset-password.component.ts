@@ -8,53 +8,61 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css'],
 })
-export class SignupComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
   faUser = faUserCircle;
   errorMessage: string = '';
-  signupForm!: FormGroup;
-  successResponse!: GenericResponse;
+  resetPasswordForm!: FormGroup;
   isLoading = false;
 
   constructor(
     private authService: AuthService,
-    private messageServide: MessageService,
+    private messageService: MessageService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup({
-      userName: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
+    this.resetPasswordForm = new FormGroup({
+      email: new FormControl('', Validators.required),
+      newPassword: new FormControl('', Validators.required),
+      token: new FormControl('', Validators.required),
     });
   }
 
   onSubmit() {
-    const Toast = this.messageServide.getToast();
+    const Toast = this.messageService.getToast();
+    let responseMessage = '';
 
-    if (this.signupForm.invalid) {
+    if (this.resetPasswordForm.invalid) {
       Toast.fire({
         icon: 'error',
         iconColor: 'white',
-        text: 'Please provide valid data',
+        text: 'Invalid Password',
         background: '#f27474',
         color: 'white',
       });
+
       return;
     }
 
     this.isLoading = true;
 
-    this.authService.signup(this.signupForm.value).subscribe(
+    this.authService.resetPassword(this.resetPasswordForm.value).subscribe(
       (response: GenericResponse) => {
         console.log(response);
-        this.successResponse = response;
+        responseMessage = response.message;
+        this.resetPasswordForm.reset();
+        Toast.fire({
+          icon: 'success',
+          iconColor: 'white',
+          text: `${responseMessage}`,
+          background: '#a5dc86',
+          color: 'white',
+        });
         this.router.navigateByUrl('/login');
-        this.signupForm.reset();
       },
       (err: ErrorResponse) => {
         Toast.fire({
@@ -64,19 +72,16 @@ export class SignupComponent implements OnInit {
           background: '#f27474',
           color: 'white',
         });
-        this.signupForm.reset();
         this.isLoading = false;
       },
       () => {
         this.isLoading = false;
-        Toast.fire({
-          icon: 'success',
-          iconColor: 'white',
-          text: `${this.successResponse.message}`,
-          background: '#a5dc86',
-          color: 'white',
-        });
       }
     );
+  }
+
+  forgetPassword() {
+    this.isLoading = false;
+    this.router.navigateByUrl('/forgetPassword');
   }
 }
