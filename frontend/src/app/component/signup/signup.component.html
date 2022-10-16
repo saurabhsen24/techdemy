@@ -1,12 +1,10 @@
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading">
+</mat-progress-bar>
 <div class="container mt-5">
   <div class="card ms-auto me-auto p-3 shadow-lg custom-card">
     <fa-icon [icon]="faUser" class="ms-auto me-auto user-icon"></fa-icon>
 
-    <form>
-      <div class="alert alert-danger" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </div>
-
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="username">Username</label>
         <input
@@ -14,9 +12,18 @@
           id="username"
           name="username"
           class="form-control"
+          formControlName="userName"
           required
         />
-        <div class="alert-danger" *ngIf="false">Username is required.</div>
+        <div
+          class="alert-danger"
+          *ngIf="
+            !signupForm.get('userName')?.valid &&
+            signupForm.get('userName')?.touched
+          "
+        >
+          Username is required.
+        </div>
       </div>
 
       <div class="form-group">
@@ -26,9 +33,17 @@
           id="email"
           name="email"
           class="form-control"
+          formControlName="email"
           required
         />
-        <div class="alert-danger" *ngIf="false">Username is required.</div>
+        <div
+          class="alert-danger"
+          *ngIf="
+            !signupForm.get('email')?.valid && signupForm.get('email')?.touched
+          "
+        >
+          Username is required.
+        </div>
       </div>
 
       <div class="form-group">
@@ -38,9 +53,17 @@
           id="password"
           name="password"
           class="form-control"
-          required
+          formControlName="password"
         />
-        <div class="alert-danger" *ngIf="false">Password is required.</div>
+        <div
+          class="alert-danger"
+          *ngIf="
+            !signupForm.get('password')?.valid &&
+            signupForm.get('password')?.touched
+          "
+        >
+          Password is required.
+        </div>
       </div>
 
       <button type="submit" class="btn btn-danger w-100 mt-3">Sign Up</button>
