@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
   loginForm!: FormGroup;
   isLoading = false;
+  isAdmin = false;
 
   constructor(
     private authService: AuthService,
@@ -51,6 +52,8 @@ export class LoginComponent implements OnInit {
       (loginResponse: LoginResponse) => {
         this.tokenStorage.saveUser(loginResponse);
         this.tokenStorage.userNameListner.next(loginResponse.userName);
+        this.isAdmin = this.tokenStorage.checkAdmin();
+        this.tokenStorage.adminRoleListener.next(this.isAdmin);
         this.router.navigateByUrl('/');
         this.loginForm.reset();
       },

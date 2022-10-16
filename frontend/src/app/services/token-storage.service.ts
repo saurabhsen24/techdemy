@@ -10,10 +10,12 @@ import { UserData } from '../models/UserData.model';
 export class TokenStorageService {
   public authStatusListener = new Subject<boolean>();
   public userNameListner = new Subject<string>();
+  public adminRoleListener = new Subject<boolean>();
   constructor() {}
 
   logOut(): void {
     sessionStorage.clear();
+    this.adminRoleListener.next(false);
     this.authStatusListener.next(false);
   }
 
@@ -30,5 +32,16 @@ export class TokenStorageService {
     }
 
     return null;
+  }
+
+  checkAdmin() {
+    const user = this.getUser();
+    if (user && user.role === 'ADMIN') {
+      this.adminRoleListener.next(true);
+      return true;
+    }
+
+    this.adminRoleListener.next(false);
+    return false;
   }
 }
