@@ -36,7 +36,7 @@ public class ResetTokenServiceImpl implements ResetTokenService {
 
         String token = UUID.randomUUID().toString();
 
-        LocalDateTime expiresAt = LocalDateTime.now().plusMonths(1);
+        LocalDateTime expiresAt = LocalDateTime.now().plusMinutes( 5 );
 
         deleteResetTokenIfExist( user.getUserId() );
 
