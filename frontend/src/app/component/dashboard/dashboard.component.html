@@ -1,0 +1,26 @@
+<div class="container p-3">
+  <div class="d-flex flex-wrap">
+    <div class="m-2" *ngFor="let course of courses">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{ course.courseName }}</mat-card-title>
+          <mat-card-subtitle>Created By: {{ course.author }}</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          height="200px"
+          src="https://img-c.udemycdn.com/course/240x135/4364396_6a81.jpg"
+          alt="Course Image"
+        />
+
+        <mat-card-content class="card-content">
+          <p [innerHTML]="course.courseDescription"></p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
