@@ -1,0 +1,25 @@
+<div class="container d-flex flex-wrap mt-5">
+  <div class="m-3" *ngFor="let course of courses">
+    <div class="card course-card shadow">
+      <img
+        src="https://img-c.udemycdn.com/course/240x135/4364396_6a81.jpg"
+        class="card-img-top"
+        alt="Card Image"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ course.courseName }}</h5>
+        <p class="card-text" [innerHTML]="course.courseDescription"></p>
+      </div>
+
+      <div class="text-center mb-5">
+        <button type="button" class="btn btn-danger me-2">
+          <fa-icon [icon]="faCartIcon" class="ms-auto me-auto"></fa-icon>
+          Add To Cart
+        </button>
+        <button type="button" class="btn btn-danger ms-2">
+          Price : {{ course.coursePrice.toString() | currency: "INR" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
