@@ -5,6 +5,7 @@ import { ErrorResponse } from 'src/app/models/responses/ErrorResponse.model';
 import { GenericResponse } from 'src/app/models/responses/GenericResponse.model';
 import { CartService } from 'src/app/services/cart.service';
 import { MessageService } from 'src/app/services/message.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,13 +21,16 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
     this.cartService.getAllCarts().subscribe(
       (carts: Cart[]) => {
         this.carts = carts;
+        this.sharedService.storeCartCount(carts.length);
+        this.sharedService.cartCountSubscription.next(carts.length);
         this.getTotalPrice(this.carts);
       },
       (errResponse: ErrorResponse) => {
@@ -39,6 +43,9 @@ export class CartComponent implements OnInit {
     const newCarts = this.carts.filter((cart) => cart.courseId !== courseId);
     this.carts = newCarts;
     this.getTotalPrice(newCarts);
+
+    this.sharedService.storeCartCount(newCarts.length);
+    this.sharedService.cartCountSubscription.next(newCarts.length);
     this.cartService
       .deleteFromCart(courseId)
       .subscribe((response: GenericResponse) => {

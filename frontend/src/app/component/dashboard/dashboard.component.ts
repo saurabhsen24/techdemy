@@ -9,6 +9,7 @@ import { GenericResponse } from 'src/app/models/responses/GenericResponse.model'
 import { CartService } from 'src/app/services/cart.service';
 import { CourseService } from 'src/app/services/course.service';
 import { MessageService } from 'src/app/services/message.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private cartService: CartService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +39,9 @@ export class DashboardComponent implements OnInit {
   addToCart(courseId: Number) {
     this.cartService.saveToCart(courseId).subscribe(
       (response: GenericResponse) => {
+        let cartCount = this.sharedService.getCartCount();
+        this.sharedService.storeCartCount(cartCount + 1);
+        this.sharedService.cartCountSubscription.next(cartCount + 1);
         this.messageService.showToastMessage('success', response.message);
       },
       (errorResponse: ErrorResponse) => {
