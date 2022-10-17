@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Cart } from '../models/Cart.model';
 import { GenericResponse } from '../models/responses/GenericResponse.model';
 
 @Injectable({
@@ -31,8 +32,15 @@ export class CartService {
       );
   }
 
+  getCartCount() {
+    return this.http.get<any>(`${this.cartApi}/count`).pipe(
+      tap((response) => console.log(response)),
+      catchError((errResponse) => throwError(errResponse.error))
+    );
+  }
+
   getAllCarts() {
-    return this.http.get(`${this.cartApi}/all`).pipe(
+    return this.http.get<Cart[]>(`${this.cartApi}/all`).pipe(
       tap((response) => console.log(response)),
       catchError((errResponse) => throwError(errResponse.error))
     );

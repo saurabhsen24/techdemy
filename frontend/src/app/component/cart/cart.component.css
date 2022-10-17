@@ -1,0 +1,37 @@
+.shoping-cart {
+  font-weight: 700;
+    font-size: 40px;
+    line-height: 1.15;
+    margin-left: 4em;
+}
+
+.custom-title {
+  font-size: 1em;
+}
+
+.max-line {
+  max-width: 90%;
+  display: block;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 4.5em;
+  line-height: 1.5em;
+}
+
+.cart-price {
+  color: #a435f0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.total-price {
+  font-weight: 400;
+  font-size: 1.5em;
+}
+
+.total-price-value {
+  color:#1c1d1f;
+  font-weight: 700;
+  font-size: 36px;
+}
