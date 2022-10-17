@@ -1,26 +1,25 @@
-<div class="container p-3">
-  <div class="d-flex flex-wrap">
-    <div class="m-2" *ngFor="let course of courses">
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title>{{ course.courseName }}</mat-card-title>
-          <mat-card-subtitle>Created By: {{ course.author }}</mat-card-subtitle>
-        </mat-card-header>
-        <img
-          mat-card-image
-          height="200px"
-          src="https://img-c.udemycdn.com/course/240x135/4364396_6a81.jpg"
-          alt="Course Image"
-        />
+<div class="container d-flex flex-wrap mt-5">
+  <div class="m-3" *ngFor="let course of courses">
+    <div class="card course-card shadow">
+      <img
+        src="https://img-c.udemycdn.com/course/240x135/4364396_6a81.jpg"
+        class="card-img-top"
+        alt="Card Image"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ course.courseName }}</h5>
+        <p class="card-text" [innerHTML]="course.courseDescription"></p>
+      </div>
 
-        <mat-card-content class="card-content">
-          <p [innerHTML]="course.courseDescription"></p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
-      </mat-card>
+      <div class="text-center mb-5">
+        <button type="button" class="btn btn-danger me-2">
+          <fa-icon [icon]="faCartIcon" class="ms-auto me-auto"></fa-icon>
+          Add To Cart
+        </button>
+        <button type="button" class="btn btn-danger ms-2">
+          Price : {{ course.coursePrice.toString() | currency: "INR" }}
+        </button>
+      </div>
     </div>
   </div>
 </div>

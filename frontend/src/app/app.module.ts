@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    MatBadgeModule,
     MatProgressBarModule,
     MatCardModule,
     MatDividerModule,

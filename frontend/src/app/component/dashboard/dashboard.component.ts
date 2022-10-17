@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { faUserGraduate } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCartShopping,
+  faUserGraduate,
+} from '@fortawesome/free-solid-svg-icons';
 import { CourseResponse } from 'src/app/models/responses/CourseResponse.model';
 import { CourseService } from 'src/app/services/course.service';
 
@@ -11,6 +14,7 @@ import { CourseService } from 'src/app/services/course.service';
 export class DashboardComponent implements OnInit {
   courses: CourseResponse[] = [];
   faUserGraduate = faUserGraduate;
+  faCartIcon = faCartShopping;
 
   constructor(private courseService: CourseService) {}
 
