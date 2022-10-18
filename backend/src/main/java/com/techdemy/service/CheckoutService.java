@@ -3,16 +3,20 @@ package com.techdemy.service;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+import com.techdemy.config.RazorpayPropertiesConfig;
 import com.techdemy.dto.Payment;
 import com.techdemy.dto.request.CheckoutRequest;
 import com.techdemy.dto.response.CheckoutResponse;
 import com.techdemy.entities.Checkout;
+import com.techdemy.entities.User;
 import com.techdemy.enums.TransactionType;
 import com.techdemy.exception.PaymentException;
 import com.techdemy.exception.ResourceNotFoundException;
 import com.techdemy.repository.CheckoutRepository;
+import com.techdemy.repository.UserRepository;
 import com.techdemy.utils.Constants;
 import com.techdemy.utils.Signature;
+import com.techdemy.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -32,8 +36,12 @@ public class CheckoutService {
     @Autowired
     private RazorpayClient razorpayClient;
 
-    @Value("${razorpay.key_secret}")
-    private String razorpaySecret;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RazorpayPropertiesConfig razorpayPropertiesConfig;
+
     @Autowired
     private CheckoutRepository checkoutRepository;
 
@@ -47,19 +55,22 @@ public class CheckoutService {
         Order order = null;
         try {
             order = razorpayClient.orders.create(razorpayOrderRequest);
-            Checkout checkout = Checkout.from(order,totalAmount.intValue());
+            User user = userRepository.findById(Utils.getCurrentLoggedInUserId())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            Checkout checkout = Checkout.from(order, user, totalAmount.intValue());
             checkoutRepository.save(checkout);
         } catch (RazorpayException e) {
             log.warn("Payment is unsuccessful, {}", ExceptionUtils.getStackTrace(e));
             throw new PaymentException("Unsuccessful Payment");
         }
 
-        return CheckoutResponse.from(order,razorpaySecret);
+        return CheckoutResponse.from(order, razorpayPropertiesConfig.getKeyId());
     }
 
     @Transactional
     public void updateCheckout(Payment payment) {
-        log.debug("");
+        log.debug("Updating the txn status in DB for orderId: {} and paymentID: {}", payment.getRazorpayOrderId(),
+                payment.getRazorpayPaymentId());
 
         Checkout checkout = checkoutRepository.findByOrderId(payment.getRazorpayOrderId())
                 .orElseThrow(() -> new ResourceNotFoundException("Checkout order not found"));
@@ -74,7 +85,7 @@ public class CheckoutService {
         String generatedSignature = "";
         try {
             generatedSignature = Signature.calculateRFC2104HMAC(payment.getRazorpayOrderId() +
-                    "|" + payment.getRazorpayPaymentId(), razorpaySecret);
+                    "|" + payment.getRazorpayPaymentId(), razorpayPropertiesConfig.getKeySecret());
 
             if( BooleanUtils.isFalse( generatedSignature.equals( payment.getRazorpaySignature() ) ) ) {
                 throw new PaymentException("Payment Failed");
