@@ -102,7 +102,7 @@ export class CartComponent implements OnInit {
       prefill: {
         name: 'Saurabh Sen',
         email: 'saurbhsen@gmail.com',
-        contact: '8151849266',
+        contact: '9999999999',
       },
       notes: {
         address: 'Razorpay Corporate Office',
