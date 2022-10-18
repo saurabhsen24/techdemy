@@ -7,4 +7,5 @@ export interface CourseResponse {
   courseName: string;
   coursePrice: Number;
   courseRating: Number;
+  addedToCart?: boolean;
 }

@@ -21,6 +21,7 @@ import { ForgetPasswordComponent } from './component/forget-password/forget-pass
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { CartComponent } from './component/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     ForgetPasswordComponent,
     ResetPasswordComponent,
     DashboardComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

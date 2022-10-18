@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/services/shared.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
@@ -11,9 +12,11 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: Boolean = false;
   isAdmin: Boolean = false;
   username: string = '';
+  cartCount: Number = 0;
 
   constructor(
     private tokenStorage: TokenStorageService,
+    private sharedService: SharedService,
     private router: Router
   ) {}
 
@@ -31,6 +34,10 @@ export class HeaderComponent implements OnInit {
     this.tokenStorage.adminRoleListener.subscribe((isAdmin: Boolean) => {
       this.isAdmin = isAdmin;
     });
+
+    this.sharedService.cartCountSubscription.subscribe((cartCount: Number) => {
+      this.cartCount = cartCount;
+    });
   }
 
   autoLogin() {
@@ -39,6 +46,7 @@ export class HeaderComponent implements OnInit {
       this.isLoggedIn = true;
       this.username = user.userName;
       this.isAdmin = this.tokenStorage.checkAdmin();
+      this.cartCount = this.sharedService.getCartCount();
       this.tokenStorage.adminRoleListener.next(true);
       this.tokenStorage.authStatusListener.next(true);
     } else {
