@@ -11,11 +11,35 @@ export class SharedService {
   constructor() {}
 
   storeCartCount(count: Number) {
-    localStorage.setItem(Constants.CART_COUNT, count.toString());
+    window.sessionStorage.setItem(Constants.CART_COUNT, count.toString());
   }
 
   getCartCount() {
-    let cartCount = localStorage.getItem(Constants.CART_COUNT);
+    let cartCount = window.sessionStorage.getItem(Constants.CART_COUNT);
     return cartCount == null ? 0 : +cartCount;
+  }
+
+  storeInCart(cart: string) {
+    let carts = this.getCarts();
+    if (!carts) {
+      carts = [];
+    }
+
+    carts.push(cart);
+    window.sessionStorage.setItem(Constants.CARTS, JSON.stringify(carts));
+  }
+
+  removeFromCart(cart: string) {
+    let carts = this.getCarts();
+    let newCarts = carts?.filter((c) => c != cart);
+    if (!newCarts) {
+      newCarts = [];
+    }
+    window.sessionStorage.setItem(Constants.CARTS, JSON.stringify(newCarts));
+  }
+
+  getCarts(): string[] | null {
+    const carts = window.sessionStorage.getItem(Constants.CARTS);
+    return carts ? JSON.parse(carts) : null;
   }
 }

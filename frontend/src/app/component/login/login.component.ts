@@ -35,16 +35,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    const Toast = this.messageService.getToast();
-
     if (this.loginForm.invalid) {
-      Toast.fire({
-        icon: 'error',
-        iconColor: 'white',
-        text: 'Invalid Username or Password',
-        background: '#f27474',
-        color: 'white',
-      });
+      this.messageService.showToastMessage(
+        'error',
+        'Invalid Username or Password'
+      );
       return;
     }
 
@@ -58,24 +53,12 @@ export class LoginComponent implements OnInit {
         this.loginForm.reset();
       },
       (err: ErrorResponse) => {
-        Toast.fire({
-          icon: 'error',
-          iconColor: 'white',
-          text: `${err.message}`,
-          background: '#f27474',
-          color: 'white',
-        });
+        this.messageService.showToastMessage('error', err.message);
         this.isLoading = false;
       },
       () => {
         this.isLoading = false;
-        Toast.fire({
-          icon: 'success',
-          iconColor: 'white',
-          text: 'Login Successfully',
-          background: '#a5dc86',
-          color: 'white',
-        });
+        this.messageService.showToastMessage('success', 'Login Successfully');
       }
     );
   }

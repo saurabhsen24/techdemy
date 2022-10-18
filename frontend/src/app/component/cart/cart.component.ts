@@ -34,7 +34,7 @@ export class CartComponent implements OnInit {
         this.getTotalPrice(this.carts);
       },
       (errResponse: ErrorResponse) => {
-        this.messageService.showErrorMessage(errResponse);
+        this.messageService.showToastMessage('error', errResponse.message);
       }
     );
   }
@@ -43,7 +43,8 @@ export class CartComponent implements OnInit {
     const newCarts = this.carts.filter((cart) => cart.courseId !== courseId);
     this.carts = newCarts;
     this.getTotalPrice(newCarts);
-
+    
+    this.sharedService.removeFromCart(courseId.toString());
     this.sharedService.storeCartCount(newCarts.length);
     this.sharedService.cartCountSubscription.next(newCarts.length);
     this.cartService

@@ -3,6 +3,7 @@ import {
   faCartShopping,
   faUserGraduate,
 } from '@fortawesome/free-solid-svg-icons';
+import { Cart } from 'src/app/models/Cart.model';
 import { CourseResponse } from 'src/app/models/responses/CourseResponse.model';
 import { ErrorResponse } from 'src/app/models/responses/ErrorResponse.model';
 import { GenericResponse } from 'src/app/models/responses/GenericResponse.model';
@@ -20,6 +21,7 @@ export class DashboardComponent implements OnInit {
   courses: CourseResponse[] = [];
   faUserGraduate = faUserGraduate;
   faCartIcon = faCartShopping;
+  carts: Cart[] | null = null;
 
   constructor(
     private courseService: CourseService,
@@ -31,8 +33,15 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.courseService
       .getAllCourses()
-      .subscribe((courses: CourseResponse[]) => {
-        this.courses = courses;
+      .subscribe((courseData: CourseResponse[]) => {
+        courseData.map((course) => {
+          course.addedToCart = this.findCourseInCart(
+            course.courseId.toString()
+          );
+        });
+
+        console.log(courseData);
+        this.courses = courseData;
       });
   }
 
@@ -41,6 +50,11 @@ export class DashboardComponent implements OnInit {
       (response: GenericResponse) => {
         let cartCount = this.sharedService.getCartCount();
         this.sharedService.storeCartCount(cartCount + 1);
+        this.sharedService.storeInCart(courseId.toString());
+
+        this.courses
+          .filter((course) => course.courseId === courseId)
+          .map((course) => (course.addedToCart = true));
         this.sharedService.cartCountSubscription.next(cartCount + 1);
         this.messageService.showToastMessage('success', response.message);
       },
@@ -48,5 +62,11 @@ export class DashboardComponent implements OnInit {
         this.messageService.showErrorMessage(errorResponse);
       }
     );
+  }
+
+  private findCourseInCart(courseId: string): boolean {
+    const carts = this.sharedService.getCarts();
+    if (carts == null) return false;
+    return carts.find((cId) => cId === courseId) != null;
   }
 }

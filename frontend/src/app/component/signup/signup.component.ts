@@ -34,16 +34,11 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    const Toast = this.messageServide.getToast();
-
     if (this.signupForm.invalid) {
-      Toast.fire({
-        icon: 'error',
-        iconColor: 'white',
-        text: 'Please provide valid data',
-        background: '#f27474',
-        color: 'white',
-      });
+      this.messageServide.showToastMessage(
+        'error',
+        'Please provide valid data'
+      );
       return;
     }
 
@@ -57,25 +52,16 @@ export class SignupComponent implements OnInit {
         this.signupForm.reset();
       },
       (err: ErrorResponse) => {
-        Toast.fire({
-          icon: 'error',
-          iconColor: 'white',
-          text: `${err.message}`,
-          background: '#f27474',
-          color: 'white',
-        });
+        this.messageServide.showToastMessage('error', err.message);
         this.signupForm.reset();
         this.isLoading = false;
       },
       () => {
         this.isLoading = false;
-        Toast.fire({
-          icon: 'success',
-          iconColor: 'white',
-          text: `${this.successResponse.message}`,
-          background: '#a5dc86',
-          color: 'white',
-        });
+        this.messageServide.showToastMessage(
+          'success',
+          this.successResponse.message
+        );
       }
     );
   }
