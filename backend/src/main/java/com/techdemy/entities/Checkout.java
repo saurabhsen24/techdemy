@@ -51,11 +51,12 @@ public class Checkout {
     @Column( name = "updated_on", nullable = false )
     private LocalDateTime updatedOn;
 
-    public static Checkout from(Order order, Integer totalAmount) {
+    public static Checkout from(Order order, User user, Integer totalAmount) {
         Checkout checkout = Checkout.builder()
                 .orderId(order.get("id"))
                 .paymentId(null)
                 .totalAmount(totalAmount)
+                .user(user)
                 .txnType(TransactionType.CREATED)
                 .build();
 
