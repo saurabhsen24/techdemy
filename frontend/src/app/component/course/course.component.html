@@ -2,21 +2,22 @@
   <div class="container offset-md-2">
     <div class="row">
       <div class="col">
-        <div class="course-title">{{ course?.courseName }}</div>
+        <div class="course-title">{{ course!!.courseName }}</div>
         <div class="course-description">
-          <p>{{ course?.courseDescription }}</p>
+          <p>{{ course!!.courseDescription }}</p>
         </div>
-        <div class="course-rating">
+        <div class="course-category mt-2">
+          {{ course!!.category }}
+        </div>
+        <div class="course-rating mt-2">
           <fa-icon
-            *ngFor="let i of [1, 2, 3, 4, 5]"
+            *ngFor="let i of numberOfStars"
             [icon]="faStarIcon"
             class="start-color"
           >
           </fa-icon>
         </div>
-        <div class="course-author mt-2">
-          Created By: <b>{{ course?.author }}</b>
-        </div>
+        <div class="course-author mt-2">Created By {{ course!!.author }}</div>
       </div>
       <div class="col">
         <div class="course-image" style="margin-top: 1em">
@@ -44,4 +45,7 @@
       </div>
     </div>
   </div>
+</div>
+<div class="container mt-5">
+  <app-review></app-review>
 </div>

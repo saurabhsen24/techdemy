@@ -8,6 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +27,7 @@ import { CartComponent } from './component/cart/cart.component';
 import { EnrollmentComponent } from './component/enrollment/enrollment.component';
 import { ReviewComponent } from './component/review/review.component';
 import { CourseComponent } from './component/course/course.component';
+import { StarRatingComponent } from './component/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { CourseComponent } from './component/course/course.component';
     EnrollmentComponent,
     ReviewComponent,
     CourseComponent,
+    StarRatingComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ import { CourseComponent } from './component/course/course.component';
     MatBadgeModule,
     MatProgressBarModule,
     MatCardModule,
+    MatFormFieldModule,
     MatDividerModule,
+    MatTooltipModule,
     FontAwesomeModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -1,6 +1,6 @@
 .course-page {
   background-color: #1c1d1f;
-  min-height: 300px;
+  min-height: 450px;
   width: 100%;
   overflow: hidden;
 }
@@ -21,6 +21,13 @@
 
 .course-author {
   color: #fff;
+  display: block;
+  font-size: 1.17em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
 }
 
 .start-color {
@@ -33,4 +40,8 @@ color: #e59819;
 
 .obj-item{
   margin-bottom: 2%;
+}
+
+.course-category {
+  color: #fff;
 }

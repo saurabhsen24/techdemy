@@ -1,1 +1,32 @@
-<p>review works!</p>
+<div class="review-page">
+  <div class="card ms-auto me-auto p-3 shadow-lg custom-card">
+    <div class="text-center">
+      <h3 class="card-title">Add Review</h3>
+    </div>
+    <form>
+      <div class="form-group">
+        <app-star-rating
+          [rating]="rating"
+          [starCount]="starCount"
+          [color]="starColor"
+          (ratingUpdated)="onRatingChanged($event)"
+        >
+        </app-star-rating>
+      </div>
+      <div class="from-group">
+        <label for="review" class="form-label">Review Comment</label>
+        <textarea
+          type="text"
+          name="review"
+          class="form-control"
+          rows="3"
+          formControlName="reviewComment"
+        >
+        </textarea>
+      </div>
+      <button type="button" class="btn btn-danger w-100 mt-3">
+        Submit Review
+      </button>
+    </form>
+  </div>
+</div>
