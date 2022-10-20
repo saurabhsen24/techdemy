@@ -2,6 +2,7 @@ export class Constants {
   public static USER_KEY = 'userData';
   public static CART_COUNT = 'cartCount';
   public static CARTS = 'carts';
+  public static ENROLLED_COURSES = 'enrolledCourses';
   public static QUILL_CONFIG = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons

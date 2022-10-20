@@ -13,7 +13,7 @@
 
       <div class="text-center mb-5">
         <button
-          *ngIf="!course.addedToCart"
+          *ngIf="!course.addedToCart && !course.enrolled"
           type="button"
           class="btn btn-danger me-2"
           (click)="addToCart(+course.courseId)"
@@ -25,10 +25,14 @@
           *ngIf="course.addedToCart"
           type="button"
           class="btn btn-danger me-2"
-          (click)="addToCart(+course.courseId)"
+          (click)="removeFromCart(+course.courseId)"
         >
           <fa-icon [icon]="faCartIcon" class="ms-auto me-auto"></fa-icon>
           Remove From Cart
+        </button>
+        <button *ngIf="course.enrolled" type="button" class="btn btn-dark me-2">
+          <fa-icon [icon]="faCheckIcon" class="ms-auto me-auto"></fa-icon>
+          Enrolled
         </button>
         <button type="button" class="btn btn-danger ms-2">
           Price : {{ course.coursePrice.toString() | currency: "INR" }}

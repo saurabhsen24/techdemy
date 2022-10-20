@@ -22,6 +22,7 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { CartComponent } from './component/cart/cart.component';
+import { EnrollmentComponent } from './component/enrollment/enrollment.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CartComponent } from './component/cart/cart.component';
     ResetPasswordComponent,
     DashboardComponent,
     CartComponent,
+    EnrollmentComponent,
   ],
   imports: [
     BrowserModule,
