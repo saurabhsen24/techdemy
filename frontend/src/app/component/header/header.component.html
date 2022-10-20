@@ -10,6 +10,9 @@
   <a class="btn" mat-button routerLink="/user" *ngIf="isLoggedIn">
     <mat-icon class="me-1">person</mat-icon> {{ username }}
   </a>
+  <a class="btn" mat-button routerLink="/enrollments" *ngIf="isLoggedIn">
+    <mat-icon class="me-1">menu_book</mat-icon> My Courses
+  </a>
   <a class="btn" mat-button routerLink="/cart" *ngIf="isLoggedIn && !isAdmin">
     <mat-icon matBadge="{{ cartCount }}" matBadgeColor="accent" class="me-1">
       shopping_cart

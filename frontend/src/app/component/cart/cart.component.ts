@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { faTag, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Cart } from 'src/app/models/Cart.model';
 import { ErrorResponse } from 'src/app/models/responses/ErrorResponse.model';

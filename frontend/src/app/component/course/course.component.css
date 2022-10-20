@@ -1,0 +1,36 @@
+.course-page {
+  background-color: #1c1d1f;
+  min-height: 300px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.course-title {
+  font-size: 3.2rem;
+  margin-bottom: 0.8rem;
+  padding-top: 1em;
+  font-weight: 700;
+  color: #fff;
+}
+
+.course-description {
+  padding-top: 1em;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.course-author {
+  color: #fff;
+}
+
+.start-color {
+color: #e59819;
+}
+
+.course-image {
+  width: 300px;
+}
+
+.obj-item{
+  margin-bottom: 2%;
+}

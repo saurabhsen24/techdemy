@@ -30,7 +30,12 @@
           <fa-icon [icon]="faCartIcon" class="ms-auto me-auto"></fa-icon>
           Remove From Cart
         </button>
-        <button *ngIf="course.enrolled" type="button" class="btn btn-dark me-2">
+        <button
+          *ngIf="course.enrolled"
+          routerLink="/course/{{ course.courseId }}"
+          type="button"
+          class="btn btn-dark me-2"
+        >
           <fa-icon [icon]="faCheckIcon" class="ms-auto me-auto"></fa-icon>
           Enrolled
         </button>

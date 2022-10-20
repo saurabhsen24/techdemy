@@ -23,6 +23,8 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { CartComponent } from './component/cart/cart.component';
 import { EnrollmentComponent } from './component/enrollment/enrollment.component';
+import { ReviewComponent } from './component/review/review.component';
+import { CourseComponent } from './component/course/course.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { EnrollmentComponent } from './component/enrollment/enrollment.component
     DashboardComponent,
     CartComponent,
     EnrollmentComponent,
+    ReviewComponent,
+    CourseComponent,
   ],
   imports: [
     BrowserModule,
