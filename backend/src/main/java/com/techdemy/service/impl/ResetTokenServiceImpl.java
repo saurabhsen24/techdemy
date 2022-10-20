@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -34,7 +36,9 @@ public class ResetTokenServiceImpl implements ResetTokenService {
 
         String token = UUID.randomUUID().toString();
 
-        LocalDateTime expiresAt = LocalDateTime.now().plusMonths(1);
+        LocalDateTime expiresAt = LocalDateTime.now().plusMinutes( 5 );
+
+        deleteResetTokenIfExist( user.getUserId() );
 
         ResetToken resetToken = ResetToken.builder()
                 .token(token)
@@ -79,6 +83,17 @@ public class ResetTokenServiceImpl implements ResetTokenService {
         } catch (MessagingException e) {
             log.warn("Email not sent, {}", ExceptionUtils.getStackTrace(e));
         }
+    }
+
+    private void deleteResetTokenIfExist( Long userId ) {
+        ResetToken resetToken = resetTokenRepository.findById(userId).orElse(null);
+
+        if(Objects.isNull(resetToken)) {
+            return;
+        }
+
+        log.debug("Deleting the existing reset token for user {}", userId);
+        resetTokenRepository.delete(resetToken);
 
     }
 

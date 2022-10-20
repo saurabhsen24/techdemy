@@ -1,0 +1,67 @@
+<div class="mt-5">
+  <h1 class="ml-5 shoping-cart">Shopping Cart</h1>
+</div>
+<div class="container d-flex flex-row mt-5">
+  <div class="col-md-7">
+    <div class="m-3" *ngFor="let cart of carts">
+      <div class="card mb-3 shadow">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+              <div>
+                <img
+                  src="https://img-c.udemycdn.com/course/240x135/4364396_6a81.jpg"
+                  class="float-left rounded-3 d-block"
+                  alt="Shopping item"
+                  width="150px"
+                  height="150px"
+                />
+              </div>
+              <div class="ms-3">
+                <h5 class="custom-title">
+                  <b>{{ cart.courseName }}</b>
+                </h5>
+                <p class="mb-0 me-1 ms-1 max-line">
+                  {{ cart.courseDescription }}
+                </p>
+              </div>
+            </div>
+            <div class="d-flex flex-row align-items-center">
+              <div>
+                <h5 class="mb-2 cart-price">
+                  {{ cart.coursePrice.toString() | currency: "INR" }}
+                  <fa-icon [icon]="faTagIcon" class="ms-auto me-auto"></fa-icon>
+                </h5>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="removeFromCart(+cart.courseId)"
+                >
+                  <fa-icon
+                    [icon]="faDeleteIcon"
+                    class="ms-auto me-auto"
+                  ></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="card m-3 shadow">
+      <div class="card-body">
+        <div>
+          <h3 class="total-price">Total:</h3>
+          <p class="total-price-value">
+            {{ this.totalPrice | currency: "INR" }}
+          </p>
+        </div>
+        <div class="d-grid">
+          <button type="button" class="btn btn-dark" (click)="puchase(this.totalPrice)">Purchase</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

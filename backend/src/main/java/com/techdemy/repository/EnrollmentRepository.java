@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 public interface EnrollmentRepository extends JpaRepository<Enrollment,Long> {
 
-    @Query(value = "SELECT * FROM enrollments e INNER JOIN courses c ON e.course_id=c.course_id " +
-            "WHERE e.user_id=:userId",nativeQuery = true)
+    @Query(value = "SELECT c FROM Course c INNER JOIN Enrollment e ON c.courseId = e.course.courseId " +
+            "WHERE e.user.userId=:userId")
     List<Course> getAllEnrolledCourses(@Param("userId") Long userId);
 
 }

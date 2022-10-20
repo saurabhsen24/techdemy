@@ -1,6 +1,7 @@
 package com.techdemy.utils;
 
 import com.google.gson.Gson;
+import com.techdemy.security.JwtHelper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -38,6 +39,11 @@ public class Utils {
         JwtAuthenticationToken token = (JwtAuthenticationToken) authentication;
         Map<String,Object> claims = token.getTokenAttributes();
         return claims;
+    }
+
+    public static Long getCurrentLoggedInUserId() {
+        Long userId = Long.parseLong(JwtHelper.getCurrentLoggedInUserId());
+        return userId;
     }
 
 }

@@ -1,0 +1,64 @@
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading">
+</mat-progress-bar>
+<div class="container mt-5">
+  <div class="card ms-auto me-auto p-3 shadow-lg custom-card">
+    <fa-icon [icon]="faUser" class="ms-auto me-auto user-icon"></fa-icon>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-group">
+        <label for="userName">Username</label>
+        <input
+          type="text"
+          name="userName"
+          class="form-control"
+          formControlName="userName"
+          required
+        />
+        <div
+          class="alert-danger"
+          *ngIf="
+            !loginForm.get('userName')?.valid &&
+            loginForm.get('userName')?.touched
+          "
+        >
+          Username is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          formControlName="password"
+          required
+        />
+        <div
+          class="alert-danger"
+          *ngIf="
+            !loginForm.get('password')?.valid &&
+            loginForm.get('password')?.touched
+          "
+        >
+          Password is required.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-danger w-100 mt-3">Sign In</button>
+    </form>
+
+    <a
+      [routerLink]="['/forgetPassword']"
+      class="btn btn-link"
+      style="color: darkgray"
+    >
+      Forget Password?
+    </a>
+  </div>
+</div>

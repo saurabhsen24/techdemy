@@ -8,4 +8,14 @@ public interface Constants {
 
     String MONTH = "months";
 
+    String CURRENCY = "currency";
+
+    String RECEIPT = "receipt";
+
+    String AMOUNT = "amount";
+
+    String INR = "INR";
+
+    String TXN = "txn_";
+
 }

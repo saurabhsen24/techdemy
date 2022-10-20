@@ -27,4 +27,9 @@ public interface CartRepository extends JpaRepository<Cart,Long> {
     @Query(value = "SELECT COUNT(*) FROM cart WHERE user_id=:userId", nativeQuery = true)
     Integer getCartCount(@Param("userId") Long userId);
 
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM cart WHERE user_id=:userId AND course_id IN (:courseIds)", nativeQuery = true)
+    void deleteAllByUserIdAndCourses(@Param("userId") Long userId,@Param("courseIds") List<Long> courseIds);
+
 }
