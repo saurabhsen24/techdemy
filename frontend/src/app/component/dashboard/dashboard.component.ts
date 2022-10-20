@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   faCartShopping,
+  faCheckCircle,
   faUserGraduate,
 } from '@fortawesome/free-solid-svg-icons';
 import { Cart } from 'src/app/models/Cart.model';
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
   courses: CourseResponse[] = [];
   faUserGraduate = faUserGraduate;
   faCartIcon = faCartShopping;
+  faCheckIcon = faCheckCircle;
   carts: Cart[] | null = null;
 
   constructor(
@@ -38,9 +40,12 @@ export class DashboardComponent implements OnInit {
           course.addedToCart = this.findCourseInCart(
             course.courseId.toString()
           );
+
+          course.enrolled = this.findEnrolledCourses(
+            course.courseId.toString()
+          );
         });
 
-        console.log(courseData);
         this.courses = courseData;
       });
   }
@@ -64,9 +69,37 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  removeFromCart(courseId: Number) {
+    this.courses
+      .filter((course) => course.courseId === courseId)
+      .map((course) => (course.addedToCart = false));
+
+    const cartCount = this.sharedService.getCartCount();
+    this.sharedService.removeFromCart(courseId.toString());
+    this.sharedService.storeCartCount(cartCount - 1);
+    this.sharedService.cartCountSubscription.next(cartCount - 1);
+    this.cartService
+      .deleteFromCart(courseId)
+      .subscribe((response: GenericResponse) => {
+        this.messageService.showToastMessage('warning', response.message);
+      });
+  }
+
   private findCourseInCart(courseId: string): boolean {
     const carts = this.sharedService.getCarts();
     if (carts == null) return false;
     return carts.find((cId) => cId === courseId) != null;
+  }
+
+  private findEnrolledCourses(courseId: string): boolean {
+    const enrolledCourses = this.sharedService.getEnrolledCourses();
+
+    if (enrolledCourses == null) return false;
+
+    const course = enrolledCourses.find(
+      (course) => course.toString() === courseId
+    );
+
+    return course !== null && course !== undefined;
   }
 }
