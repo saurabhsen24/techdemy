@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faTag, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Cart } from 'src/app/models/Cart.model';
 import { ErrorResponse } from 'src/app/models/responses/ErrorResponse.model';
@@ -79,6 +79,7 @@ export class CartComponent implements OnInit {
         let options = this.getOptions(totalAmt, response);
         var razorPay = new Razorpay(options);
         razorPay.open();
+
         razorPay.on('payment.failed', (res: any) => {
           console.log(res);
           this.messageService.showToastMessage('error', 'Payment Failed');
@@ -98,27 +99,17 @@ export class CartComponent implements OnInit {
       name: 'TechDemy',
       description: 'Test Transaction',
       image:
-        'https://example.com/https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThS5j71stkUpEEZ3KhZAgQqwl4FcQ5tQOzyw&usqp=CAU',
       order_id: payment.orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       handler: (response: PaymentRequest) => {
         this.purchaseService
           .completePayment(response)
           .subscribe((res: GenericResponse) => {
             this.messageService.showToastMessage('success', res.message);
-            let courseIds = this.sharedService.getCarts();
-            this.enrollService.addEnrolledCourses(courseIds).subscribe(
-              () => {
-                this.sharedService.deleteCart();
-                this.router.navigateByUrl('/enrollments');
-              },
-              (err: ErrorResponse) => {
-                this.messageService.showToastMessage(
-                  'error',
-                  'Something went wrong, Please try again'
-                );
-              }
-            );
           });
+
+        var event = new CustomEvent('payment.success');
+        window.dispatchEvent(event);
       },
       prefill: {
         name: 'Saurabh Sen',
@@ -135,5 +126,33 @@ export class CartComponent implements OnInit {
 
     console.log(options);
     return options;
+  }
+
+  @HostListener('window:payment.success', ['$event'])
+  onPaymentSuccess(): void {
+    this.addEnrolledCourses();
+  }
+
+  addEnrolledCourses() {
+    let courseIds = this.sharedService.getCarts();
+    this.enrollService.addEnrolledCourses(courseIds).subscribe(
+      () => {
+        const courses = this.carts.map((cart) => cart.courseId);
+        let enrolledCourses = this.sharedService.getEnrolledCourses();
+        courses.forEach((c) => enrolledCourses.push(c.toString()));
+        let finalEnrolledCourses =
+          this.sharedService.convertStrinArrayToNumberArray(enrolledCourses);
+        this.sharedService.storeEnrolledCourses(finalEnrolledCourses);
+        this.sharedService.deleteCart();
+        this.sharedService.cartCountSubscription.next(0);
+        this.router.navigateByUrl('/enrollments');
+      },
+      (err: ErrorResponse) => {
+        this.messageService.showToastMessage(
+          'error',
+          'Something went wrong, Please try again'
+        );
+      }
+    );
   }
 }

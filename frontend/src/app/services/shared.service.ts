@@ -62,4 +62,9 @@ export class SharedService {
     const courses = localStorage.getItem(Constants.ENROLLED_COURSES);
     return courses ? JSON.parse(courses) : [];
   }
+
+  convertStrinArrayToNumberArray(stringArray: string[]) {
+    const numberArray = stringArray.map((str) => Number(str));
+    return numberArray;
+  }
 }
