@@ -28,7 +28,7 @@ export class StarRatingComponent implements OnInit {
   }
 
   onClick(rating: number) {
-    console.log(rating);
+    console.debug(rating);
     this.ratingUpdated.emit(rating);
     return false;
   }

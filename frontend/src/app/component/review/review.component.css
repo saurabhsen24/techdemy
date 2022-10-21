@@ -1,5 +1,6 @@
 .review-page{
   width: 100%;
+  min-height: 650px;
 }
 
 .custom-card {
@@ -11,3 +12,34 @@ max-width: 100%;
   font-weight: 700;
   letter-spacing: 1px;
 }
+
+.show-review {
+  width: 80%;
+}
+
+.review-card {
+  max-height: 500px;
+}
+
+.review-heading {
+  font-size: 2em;
+  font-weight: 700;
+  margin-left: 20px;
+  margin-bottom: 1em;
+}
+
+.review-user__user {
+  font-size: 2em;
+}
+
+.review-user__username {
+  padding-left: 1em;
+  margin-top: 0.7em;
+  font-weight: 600;
+}
+
+.review-comment {
+  margin-left: 3em;
+}
+
+

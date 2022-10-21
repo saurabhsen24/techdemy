@@ -33,8 +33,6 @@ export class CourseComponent implements OnInit {
             this.numberOfStars = this.sharedService.numberOfSequence(
               data.courseRating
             );
-
-            console.log(data.courseRating);
           });
       }
     });

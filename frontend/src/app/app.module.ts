@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -48,6 +48,7 @@ import { StarRatingComponent } from './component/star-rating/star-rating.compone
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
