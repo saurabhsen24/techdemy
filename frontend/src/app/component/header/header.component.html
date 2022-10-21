@@ -24,7 +24,7 @@
     </mat-icon>
     Cart
   </a>
-  <a class="btn" mat-button routerLink="/createPost" *ngIf="isAdmin">
+  <a class="btn" mat-button (click)="addCourse()" *ngIf="isAdmin">
     <mat-icon class="me-1">add_circle</mat-icon>Create Post
   </a>
 
@@ -32,3 +32,5 @@
     <mat-icon class="me-1">logout</mat-icon>Logout
   </button>
 </mat-toolbar>
+
+<app-add-course></app-add-course>

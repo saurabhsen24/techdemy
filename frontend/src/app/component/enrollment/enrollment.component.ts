@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faStar, faTag } from '@fortawesome/free-solid-svg-icons';
 import { CourseResponse } from 'src/app/models/responses/CourseResponse.model';
 import { ErrorResponse } from 'src/app/models/responses/ErrorResponse.model';
 import { EnrollmentService } from 'src/app/services/enrollment.service';
@@ -12,7 +13,8 @@ import { MessageService } from 'src/app/services/message.service';
 export class EnrollmentComponent implements OnInit {
   enrolledCourses: CourseResponse[] = [];
   isLoading = true;
-
+  faTagIcon = faTag;
+  faStarIcon = faStar;
   constructor(
     private enrollmentService: EnrollmentService,
     private messageService: MessageService
@@ -30,5 +32,9 @@ export class EnrollmentComponent implements OnInit {
         this.messageService.showErrorMessage(errorResponse);
       }
     );
+  }
+
+  getArray(n: number): Array<number> {
+    return Array(n);
   }
 }

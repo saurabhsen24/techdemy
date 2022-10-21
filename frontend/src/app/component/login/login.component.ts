@@ -55,7 +55,12 @@ export class LoginComponent implements OnInit {
         this.isAdmin = this.tokenStorage.checkAdmin();
         this.tokenStorage.adminRoleListener.next(this.isAdmin);
         this.getEnrolledCourses();
-        this.router.navigateByUrl('/');
+        if (this.isAdmin) {
+          this.router.navigateByUrl('/admin');
+        } else {
+          this.router.navigateByUrl('/');
+        }
+
         this.loginForm.reset();
       },
       (err: ErrorResponse) => {

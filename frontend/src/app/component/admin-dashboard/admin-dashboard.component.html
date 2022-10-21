@@ -29,11 +29,15 @@
       </div>
 
       <div class="text-center mb-5">
-        <button type="button" class="btn btn-danger me-2">
+        <button type="button" class="btn btn-danger me-2" (click)="editCourse()">
           <fa-icon [icon]="faUpdateIcon" class="ms-auto me-auto"></fa-icon>
           Update
         </button>
-        <button type="button" class="btn btn-danger me-2">
+        <button
+          type="button"
+          class="btn btn-danger me-2"
+          (click)="deleteCourse(+course.courseId)"
+        >
           <fa-icon [icon]="faDeleteIcon" class="ms-auto me-auto"></fa-icon>
           Delete
         </button>
@@ -41,3 +45,4 @@
     </div>
   </div>
 </div>
+<app-edit-course></app-edit-course>

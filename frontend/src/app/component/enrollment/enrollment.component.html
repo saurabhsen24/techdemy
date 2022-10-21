@@ -14,6 +14,21 @@
       <div class="card-body">
         <h5 class="card-title">{{ course.courseName }}</h5>
         <p class="card-text">{{ course.courseDescription }}</p>
+        <div class="course-rating mb-2">
+          <fa-icon
+            [icon]="faStarIcon"
+            class="star-icon"
+            *ngFor="let item of getArray(+course.courseRating)"
+          >
+          </fa-icon>
+        </div>
+        <div class="course-price">
+          {{ course.coursePrice.toString() | currency: "INR" }}
+          <fa-icon [icon]="faTagIcon" class="ms-auto me-auto"></fa-icon>
+        </div>
+        <div class="course-author mt-2">
+          <b>Created By {{ course.author }}</b>
+        </div>
       </div>
       <div class="d-grid m-3">
         <button

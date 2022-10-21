@@ -30,6 +30,8 @@ import { CourseComponent } from './component/course/course.component';
 import { StarRatingComponent } from './component/star-rating/star-rating.component';
 import { EditReviewComponent } from './component/edit-review/edit-review.component';
 import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashboard.component';
+import { AddCourseComponent } from './component/add-course/add-course.component';
+import { EditCourseComponent } from './component/edit-course/edit-course.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashb
     StarRatingComponent,
     EditReviewComponent,
     AdminDashboardComponent,
+    AddCourseComponent,
+    EditCourseComponent,
   ],
   imports: [
     BrowserModule,
