@@ -1,0 +1,83 @@
+<div class="review-page">
+  <div class="card ms-auto me-auto p-3 shadow-lg custom-card">
+    <div class="text-center">
+      <h3 class="card-title">Add Review</h3>
+    </div>
+    <form (ngSubmit)="onSubmit(reviewForm)" #reviewForm="ngForm">
+      <div class="form-group">
+        <app-star-rating
+          [rating]="rating"
+          [starCount]="starCount"
+          [color]="starColor"
+          (ratingUpdated)="onRatingChanged($event)"
+          name="rating"
+        >
+        </app-star-rating>
+      </div>
+      <div class="from-group">
+        <label for="review" class="form-label">Review Comment</label>
+        <textarea
+          type="text"
+          name="review"
+          class="form-control"
+          rows="3"
+          name="comment"
+          [(ngModel)]="reviewRequest.comment"
+        >
+        </textarea>
+      </div>
+      <button type="submit" class="btn btn-danger w-100 mt-3">
+        Submit Review
+      </button>
+    </form>
+  </div>
+  <div class="show-review mt-5" *ngIf="reviews.length > 0">
+    <h3 class="review-heading">Course Reviews</h3>
+    <div
+      class="card m-3 shadow review-card"
+      *ngFor="let review of reviews; let i = index"
+    >
+      <div class="card-body">
+        <div class="review-user d-flex flex-row">
+          <fa-icon [icon]="faUserIcon" class="review-user__user"></fa-icon>
+          <span class="review-user__username justify-content-center">
+            {{ review.userName }}
+          </span>
+        </div>
+        <div class="review-rating">
+          <fa-icon
+            *ngFor="let i of getArrayOfNumber(review.rating)"
+            [icon]="faStarIcon"
+            class="star-color"
+          >
+          </fa-icon>
+        </div>
+        <div class="review-comment">
+          {{ review.reviewComment }}
+        </div>
+      </div>
+      <div class="card-footer" *ngIf="review.userName === loggedInUser">
+        <button
+          type="button"
+          class="btn btn-secondary me-3"
+          (click)="editReview(+review.reviewId)"
+        >
+          <fa-icon [icon]="faUpdateIcon"></fa-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="deleteReview(review.reviewId)"
+        >
+          <fa-icon [icon]="faDeleteIcon"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-edit-review
+  [reviewRequest]="editReviewRequest"
+  [rating]="editReviewRequest.rating"
+  (updateEvent)="updateReview($event)"
+>
+</app-edit-review>

@@ -11,10 +11,16 @@
       />
       <div class="card-body">
         <h5 class="card-title">{{ course.courseName }}</h5>
-        <p class="card-text" [innerHTML]="course.courseDescription"></p>
+        <p class="card-text">{{ course.courseDescription }}</p>
       </div>
       <div class="d-grid m-3">
-        <button type="button" class="btn btn-dark">Enrolled</button>
+        <button
+          type="button"
+          class="btn btn-dark"
+          routerLink="/course/{{ course.courseId }}"
+        >
+          Go to course
+        </button>
       </div>
     </div>
   </div>

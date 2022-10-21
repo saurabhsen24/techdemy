@@ -12,6 +12,8 @@ export class MessageService {
     Swal.fire({
       icon: 'error',
       titleText: `${errorResponse.message}`,
+      background: '#000',
+      color: '#fff',
     });
   }
 
@@ -19,6 +21,8 @@ export class MessageService {
     Swal.fire({
       icon: swalIcon,
       titleText: `${message}`,
+      background: '#000',
+      color: '#fff',
     });
   }
 

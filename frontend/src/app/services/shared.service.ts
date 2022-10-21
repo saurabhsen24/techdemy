@@ -1,3 +1,4 @@
+import { NumberFormatStyle } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Constants } from '../constants/Constants';
@@ -66,5 +67,9 @@ export class SharedService {
   convertStrinArrayToNumberArray(stringArray: string[]) {
     const numberArray = stringArray.map((str) => Number(str));
     return numberArray;
+  }
+
+  numberOfSequence(n: Number): Array<Number> {
+    return Array(n);
   }
 }
