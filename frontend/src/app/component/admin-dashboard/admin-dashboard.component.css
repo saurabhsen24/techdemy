@@ -1,3 +1,4 @@
+
 .course-card {
   width: 400px;
   height: 500px;
@@ -7,14 +8,13 @@
   font-size: 1.5em;
 }
 
-.course-price {
-  color: #a435f0;
-  font-weight: 600;
-  font-size: 14px;
-}
-
 .star-icon {
   padding-left: 0px;
   color: #e59819;
 }
 
+.course-price {
+  color: #a435f0;
+  font-weight: 600;
+  font-size: 14px;
+}

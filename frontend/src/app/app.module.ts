@@ -29,6 +29,7 @@ import { ReviewComponent } from './component/review/review.component';
 import { CourseComponent } from './component/course/course.component';
 import { StarRatingComponent } from './component/star-rating/star-rating.component';
 import { EditReviewComponent } from './component/edit-review/edit-review.component';
+import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { EditReviewComponent } from './component/edit-review/edit-review.compone
     CourseComponent,
     StarRatingComponent,
     EditReviewComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,

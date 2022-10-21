@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {
   faCartShopping,
   faCheckCircle,
+  faStar,
+  faTag,
   faUserGraduate,
 } from '@fortawesome/free-solid-svg-icons';
 import { Cart } from 'src/app/models/Cart.model';
@@ -23,6 +25,8 @@ export class DashboardComponent implements OnInit {
   faUserGraduate = faUserGraduate;
   faCartIcon = faCartShopping;
   faCheckIcon = faCheckCircle;
+  faTagIcon = faTag;
+  faStarIcon = faStar;
   carts: Cart[] | null = null;
   isLoading = true;
 
@@ -106,5 +110,9 @@ export class DashboardComponent implements OnInit {
     );
 
     return course !== null && course !== undefined;
+  }
+
+  getArray(n: number): Array<number> {
+    return Array(n);
   }
 }

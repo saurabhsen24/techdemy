@@ -1,8 +1,5 @@
-<mat-progress-bar
-  mode="indeterminate"
-  color="accent"
-  *ngIf="isLoading"
-></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading">
+</mat-progress-bar>
 <div class="container d-flex flex-wrap mt-5">
   <div class="m-3" *ngFor="let course of courses; let i = index">
     <div class="card course-card shadow">
@@ -32,35 +29,13 @@
       </div>
 
       <div class="text-center mb-5">
-        <button
-          *ngIf="!course.addedToCart && !course.enrolled"
-          type="button"
-          class="btn btn-danger me-2"
-          (click)="addToCart(+course.courseId)"
-        >
-          <fa-icon [icon]="faCartIcon" class="ms-auto me-auto"></fa-icon>
-          Add To Cart
+        <button type="button" class="btn btn-danger me-2">
+          <fa-icon [icon]="faUpdateIcon" class="ms-auto me-auto"></fa-icon>
+          Update
         </button>
-        <button
-          *ngIf="course.addedToCart"
-          type="button"
-          class="btn btn-danger me-2"
-          (click)="removeFromCart(+course.courseId)"
-        >
-          <fa-icon [icon]="faCartIcon" class="ms-auto me-auto"></fa-icon>
-          Remove From Cart
-        </button>
-        <button
-          *ngIf="course.enrolled"
-          routerLink="/course/{{ course.courseId }}"
-          type="button"
-          class="btn btn-dark me-2"
-        >
-          <fa-icon [icon]="faCheckIcon" class="ms-auto me-auto"></fa-icon>
-          Enrolled
-        </button>
-        <button type="button" class="btn btn-danger ms-2">
-          Price : {{ course.coursePrice.toString() | currency: "INR" }}
+        <button type="button" class="btn btn-danger me-2">
+          <fa-icon [icon]="faDeleteIcon" class="ms-auto me-auto"></fa-icon>
+          Delete
         </button>
       </div>
     </div>
