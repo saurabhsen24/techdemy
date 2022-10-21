@@ -35,7 +35,7 @@ public interface ReviewRepository extends JpaRepository<Review,Long> {
     @Query(value = "DELETE FROM reviews WHERE course_id=:courseId AND user_id=:userId", nativeQuery = true)
     int deleteReview(@Param("courseId") Long courseId, @Param("userId") Long userId);
 
-    @Query(value = "SELECT r.review_id, u.user_name as userName, r.review_comment as reviewComment, r.rating as rating FROM " +
+    @Query(value = "SELECT r.review_id as reviewId, u.user_name as userName, r.review_comment as reviewComment, r.rating as rating FROM " +
             "reviews r INNER JOIN user u ON r.user_id = u.user_id WHERE r.course_id=:courseId", nativeQuery = true)
     List<ReviewResponseDto> getAllReviews(@Param("courseId") Long courseId );
 
