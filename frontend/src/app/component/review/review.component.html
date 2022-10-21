@@ -57,7 +57,11 @@
         </div>
       </div>
       <div class="card-footer" *ngIf="review.userName === loggedInUser">
-        <button type="button" class="btn btn-secondary me-3">
+        <button
+          type="button"
+          class="btn btn-secondary me-3"
+          (click)="editReview(+review.reviewId)"
+        >
           <fa-icon [icon]="faUpdateIcon"></fa-icon>
         </button>
         <button
@@ -71,3 +75,9 @@
     </div>
   </div>
 </div>
+<app-edit-review
+  [reviewRequest]="editReviewRequest"
+  [rating]="editReviewRequest.rating"
+  (updateEvent)="updateReview($event)"
+>
+</app-edit-review>

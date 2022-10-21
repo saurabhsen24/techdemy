@@ -1,0 +1,53 @@
+<div class="modal fade" id="reviewModel" tabIndex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #f="ngForm" (ngSubmit)="updateReview(f)">
+        <div class="modal-header">
+          <h5 class="modal-title review-heading">Update Review</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <app-star-rating
+              [rating]="rating"
+              [starCount]="starCount"
+              [color]="starColor"
+              (ratingUpdated)="onRatingChanged($event)"
+              name="rating"
+            >
+            </app-star-rating>
+          </div>
+
+          <div class="form-group">
+            <label for="comment">Review Comment</label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="comment"
+              name="comment"
+              rows="3"
+              [(ngModel)]="reviewRequest.comment"
+            >
+            </textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button class="btn btn-primary" type="submit">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

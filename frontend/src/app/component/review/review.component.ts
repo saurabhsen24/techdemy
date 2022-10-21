@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -15,6 +15,7 @@ import { MessageService } from 'src/app/services/message.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import Swal from 'sweetalert2';
+import { EditReviewComponent } from '../edit-review/edit-review.component';
 import { StarRatingColor } from '../star-rating/star-rating.component';
 
 @Component({
@@ -42,7 +43,18 @@ export class ReviewComponent implements OnInit {
     rating: 0,
   };
 
+  @Input()
+  editReviewRequest = {
+    reviewId: 0,
+    comment: '',
+    rating: 0,
+  };
+
   loggedInUser: string | null = null;
+
+  @ViewChild(EditReviewComponent) editReviewComponent:
+    | EditReviewComponent
+    | undefined;
 
   constructor(
     private reviewService: ReviewService,
@@ -60,7 +72,7 @@ export class ReviewComponent implements OnInit {
         .getAllReviews(this.courseId)
         .subscribe((data: ReviewResponse[]) => {
           this.reviews = data;
-          console.log(data);
+          console.debug(data);
         });
     });
 
@@ -124,6 +136,27 @@ export class ReviewComponent implements OnInit {
         );
       }
     });
+  }
+
+  editReview(reviewId: number) {
+    const review: ReviewResponse[] = this.reviews.filter(
+      (r) => r.reviewId === reviewId
+    );
+    this.editReviewRequest = {
+      reviewId: review[0].reviewId,
+      comment: review[0].reviewComment,
+      rating: review[0].rating,
+    };
+    this.editReviewComponent?.showReviewModel();
+  }
+
+  updateReview(review: { reviewId: number; comment: string; rating: number }) {
+    const index = this.reviews.findIndex((r) => r.reviewId === review.reviewId);
+
+    let updatedReview = this.reviews[index];
+    updatedReview.rating = review.rating;
+    updatedReview.reviewComment = review.comment;
+    this.reviews[index] = updatedReview;
   }
 
   getArrayOfNumber(n: number) {
