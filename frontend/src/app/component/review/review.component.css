@@ -39,7 +39,15 @@ max-width: 100%;
 }
 
 .review-comment {
-  margin-left: 3em;
+  margin-left: 2em;
 }
 
+.review-rating {
+  margin-left: 2em;
+  margin-bottom: 10px;
+}
 
+.star-color {
+  padding-left: 5px;
+  color: #e59819;
+}

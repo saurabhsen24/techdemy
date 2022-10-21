@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { CourseResponse } from 'src/app/models/responses/CourseResponse.model';
 import { CourseService } from 'src/app/services/course.service';
-import { ReviewService } from 'src/app/services/review.service';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({

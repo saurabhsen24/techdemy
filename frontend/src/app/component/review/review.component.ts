@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
   faEdit,
+  faStar,
   faTrashAlt,
-  faUser,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { ReviewRequest } from 'src/app/models/requests/ReviewRequest.model';
@@ -31,6 +31,9 @@ export class ReviewComponent implements OnInit {
   faUserIcon = faUserCircle;
   faDeleteIcon = faTrashAlt;
   faUpdateIcon = faEdit;
+  faStarIcon = faStar;
+
+  numberOfStars: number = 0;
 
   reviews: ReviewResponse[] = [];
 
@@ -70,6 +73,16 @@ export class ReviewComponent implements OnInit {
   }
 
   onSubmit(reviewForm: NgForm) {
+    this.rating = 0;
+    const newReviews = this.reviews;
+    newReviews.push({
+      reviewId: -1,
+      reviewComment: this.reviewRequest.comment,
+      rating: this.reviewRequest.rating,
+      userName: this.loggedInUser!!,
+    });
+
+    this.reviews = newReviews;
     this.reviewService.postReview(this.reviewRequest, this.courseId).subscribe(
       (response: GenericResponse) => {
         this.messageService.showToastMessage('success', response.message);
@@ -84,5 +97,36 @@ export class ReviewComponent implements OnInit {
         });
       }
     );
+  }
+
+  deleteReview(reviewId: number) {
+    const newReviews = this.reviews.filter((r) => r.reviewId !== reviewId);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      background: '#000',
+      color: '#fff',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.reviews = newReviews;
+        this.reviewService.deleteReview(this.courseId).subscribe(
+          (response: GenericResponse) => {
+            this.messageService.showToastMessage('success', response.message);
+          },
+          (err: ErrorResponse) => {
+            this.messageService.showErrorMessage(err);
+          }
+        );
+      }
+    });
+  }
+
+  getArrayOfNumber(n: number) {
+    return new Array(n);
   }
 }

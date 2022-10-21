@@ -44,6 +44,14 @@
             {{ review.userName }}
           </span>
         </div>
+        <div class="review-rating">
+          <fa-icon
+            *ngFor="let i of getArrayOfNumber(review.rating)"
+            [icon]="faStarIcon"
+            class="star-color"
+          >
+          </fa-icon>
+        </div>
         <div class="review-comment">
           {{ review.reviewComment }}
         </div>
@@ -52,7 +60,11 @@
         <button type="button" class="btn btn-secondary me-3">
           <fa-icon [icon]="faUpdateIcon"></fa-icon>
         </button>
-        <button type="button" class="btn btn-danger">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="deleteReview(review.reviewId)"
+        >
           <fa-icon [icon]="faDeleteIcon"></fa-icon>
         </button>
       </div>
