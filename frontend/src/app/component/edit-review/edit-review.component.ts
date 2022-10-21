@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ReviewRequest } from 'src/app/models/requests/ReviewRequest.model';
+import { ErrorResponse } from 'src/app/models/responses/ErrorResponse.model';
 import { GenericResponse } from 'src/app/models/responses/GenericResponse.model';
 import { MessageService } from 'src/app/services/message.service';
 import { ReviewService } from 'src/app/services/review.service';
@@ -52,10 +53,17 @@ export class EditReviewComponent implements OnInit {
     console.log(f.value);
     this.reviewService
       .updateReview(this.courseId!!, this.reviewRequest)
-      .subscribe((response: GenericResponse) => {
-        this.messageService.showToastMessage('success', response.message);
-        this.updateEvent.emit(this.reviewRequest);
-      });
+      .subscribe(
+        (response: GenericResponse) => {
+          this.messageService.showToastMessage('success', response.message);
+          this.updateEvent.emit(this.reviewRequest);
+          $('#reviewModel').modal('hide');
+        },
+        (err: ErrorResponse) => {
+          console.debug(err);
+          $('#reviewModel').modal('hide');
+        }
+      );
   }
 
   showReviewModel() {

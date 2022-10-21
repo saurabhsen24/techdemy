@@ -52,6 +52,8 @@ export class ReviewComponent implements OnInit {
 
   loggedInUser: string | null = null;
 
+  isLoading = true;
+
   @ViewChild(EditReviewComponent) editReviewComponent:
     | EditReviewComponent
     | undefined;
@@ -72,6 +74,7 @@ export class ReviewComponent implements OnInit {
         .getAllReviews(this.courseId)
         .subscribe((data: ReviewResponse[]) => {
           this.reviews = data;
+          this.isLoading = false;
           console.debug(data);
         });
     });

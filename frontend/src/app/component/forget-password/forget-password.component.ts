@@ -48,13 +48,13 @@ export class ForgetPasswordComponent implements OnInit {
 
     this.authService.forgetPassword(this.forgetPasswordForm.value).subscribe(
       (response: GenericResponse) => {
-        console.log(response);
+        console.debug(response);
         this.messageService.showMessage('success', response.message);
         this.forgetPasswordForm.reset();
         this.router.navigateByUrl('/resetPassword');
       },
       (err: ErrorResponse) => {
-        console.log(err);
+        console.debug(err);
         this.messageService.showMessage('error', err.message);
         this.forgetPasswordForm.reset();
         this.isLoading = false;

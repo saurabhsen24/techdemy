@@ -11,6 +11,7 @@ import { MessageService } from 'src/app/services/message.service';
 })
 export class EnrollmentComponent implements OnInit {
   enrolledCourses: CourseResponse[] = [];
+  isLoading = true;
 
   constructor(
     private enrollmentService: EnrollmentService,
@@ -21,9 +22,11 @@ export class EnrollmentComponent implements OnInit {
     this.enrollmentService.getAllCourses().subscribe(
       (data: CourseResponse[]) => {
         this.enrolledCourses = data;
-        console.log(data);
+        this.isLoading = false;
+        console.debug(data);
       },
       (errorResponse: ErrorResponse) => {
+        this.isLoading = false;
         this.messageService.showErrorMessage(errorResponse);
       }
     );

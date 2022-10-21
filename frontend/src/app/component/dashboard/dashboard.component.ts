@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   faCartIcon = faCartShopping;
   faCheckIcon = faCheckCircle;
   carts: Cart[] | null = null;
+  isLoading = true;
 
   constructor(
     private courseService: CourseService,
@@ -46,13 +47,16 @@ export class DashboardComponent implements OnInit {
           );
         });
 
+        this.isLoading = false;
         this.courses = courseData;
       });
   }
 
   addToCart(courseId: Number) {
+    this.isLoading = true;
     this.cartService.saveToCart(courseId).subscribe(
       (response: GenericResponse) => {
+        this.isLoading = false;
         let cartCount = this.sharedService.getCartCount();
         this.sharedService.storeCartCount(cartCount + 1);
         this.sharedService.storeInCart(courseId.toString());
@@ -64,6 +68,7 @@ export class DashboardComponent implements OnInit {
         this.messageService.showToastMessage('success', response.message);
       },
       (errorResponse: ErrorResponse) => {
+        this.isLoading = false;
         this.messageService.showErrorMessage(errorResponse);
       }
     );
