@@ -21,6 +21,7 @@ export class EnrollmentComponent implements OnInit {
     this.enrollmentService.getAllCourses().subscribe(
       (data: CourseResponse[]) => {
         this.enrolledCourses = data;
+        console.log(data);
       },
       (errorResponse: ErrorResponse) => {
         this.messageService.showErrorMessage(errorResponse);

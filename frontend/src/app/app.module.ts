@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -8,6 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +25,10 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { CartComponent } from './component/cart/cart.component';
 import { EnrollmentComponent } from './component/enrollment/enrollment.component';
+import { ReviewComponent } from './component/review/review.component';
+import { CourseComponent } from './component/course/course.component';
+import { StarRatingComponent } from './component/star-rating/star-rating.component';
+import { EditReviewComponent } from './component/edit-review/edit-review.component';
 
 @NgModule({
   declarations: [
@@ -35,18 +41,25 @@ import { EnrollmentComponent } from './component/enrollment/enrollment.component
     DashboardComponent,
     CartComponent,
     EnrollmentComponent,
+    ReviewComponent,
+    CourseComponent,
+    StarRatingComponent,
+    EditReviewComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
     MatBadgeModule,
     MatProgressBarModule,
     MatCardModule,
+    MatFormFieldModule,
     MatDividerModule,
+    MatTooltipModule,
     FontAwesomeModule,
     AppRoutingModule,
     BrowserAnimationsModule,

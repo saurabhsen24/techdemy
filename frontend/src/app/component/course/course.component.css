@@ -1,0 +1,47 @@
+.course-page {
+  background-color: #1c1d1f;
+  min-height: 450px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.course-title {
+  font-size: 3.2rem;
+  margin-bottom: 0.8rem;
+  padding-top: 1em;
+  font-weight: 700;
+  color: #fff;
+}
+
+.course-description {
+  padding-top: 1em;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.course-author {
+  color: #fff;
+  display: block;
+  font-size: 1.17em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.start-color {
+color: #e59819;
+}
+
+.course-image {
+  width: 300px;
+}
+
+.obj-item{
+  margin-bottom: 2%;
+}
+
+.course-category {
+  color: #fff;
+}

@@ -1,0 +1,51 @@
+<div class="course-page">
+  <div class="container offset-md-2">
+    <div class="row">
+      <div class="col">
+        <div class="course-title">{{ course!!.courseName }}</div>
+        <div class="course-description">
+          <p>{{ course!!.courseDescription }}</p>
+        </div>
+        <div class="course-category mt-2">
+          {{ course!!.category }}
+        </div>
+        <div class="course-rating mt-2">
+          <fa-icon
+            *ngFor="let i of numberOfStars"
+            [icon]="faStarIcon"
+            class="start-color"
+          >
+          </fa-icon>
+        </div>
+        <div class="course-author mt-2">Created By {{ course!!.author }}</div>
+      </div>
+      <div class="col">
+        <div class="course-image" style="margin-top: 1em">
+          <div class="card rounded">
+            <img
+              src="https://img-c.udemycdn.com/course/240x135/4364396_6a81.jpg"
+              class="card-img-top rounded mx-auto img-thumbnail"
+              alt="Course Item"
+              width="200px"
+              height="200px"
+            />
+            <div class="card-body d-grid">
+              <button class="btn btn-dark">You Own This Course</button>
+              <div class="mt-3">
+                <h4><b>Access on mobile and TV</b></h4>
+                <ul style="padding-left: 20px">
+                  <li class="obj-item">Full lifetime access</li>
+                  <li class="obj-item">Access on mobile and TV</li>
+                  <li class="obj-item">Access on mobile and TV</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <app-review></app-review>
+</div>
