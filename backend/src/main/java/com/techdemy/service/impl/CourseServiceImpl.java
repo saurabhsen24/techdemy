@@ -10,11 +10,14 @@ import com.techdemy.exception.ResourceNotFoundException;
 import com.techdemy.repository.CourseRepository;
 import com.techdemy.security.JwtHelper;
 import com.techdemy.service.CourseService;
+import com.techdemy.service.FileUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,12 +28,25 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Autowired
+    private FileUploadService fileUploadService;
+
     @Override
-    public void saveCourse(CourseRequestDto courseRequestDto) {
+    public CourseResponseDto saveCourse(CourseRequestDto courseRequestDto) {
         log.debug("Get request to save course {}", courseRequestDto.getCourseName());
 
+        String courseImageUrl = null;
+        try {
+            courseImageUrl = fileUploadService.uploadFile(courseRequestDto.getFile());
+        } catch (IOException e) {
+            log.warn("Course Image didn't upload {}", ExceptionUtils.getStackTrace(e));
+            throw new BadRequestException(e.getMessage());
+        }
+
         Course course = Course.from(courseRequestDto);
+        course.setCourseImage(courseImageUrl);
         courseRepository.save(course);
+        return CourseResponseDto.from(course);
     }
 
     @Override
