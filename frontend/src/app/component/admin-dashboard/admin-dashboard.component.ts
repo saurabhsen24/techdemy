@@ -10,6 +10,7 @@ import { ErrorResponse } from 'src/app/models/responses/ErrorResponse.model';
 import { GenericResponse } from 'src/app/models/responses/GenericResponse.model';
 import { CourseService } from 'src/app/services/course.service';
 import { MessageService } from 'src/app/services/message.service';
+import { SharedService } from 'src/app/services/shared.service';
 import Swal from 'sweetalert2';
 import { EditCourseComponent } from '../edit-course/edit-course.component';
 
@@ -32,6 +33,7 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
+    private sharedService: SharedService,
     private messageService: MessageService
   ) {}
 
@@ -43,6 +45,12 @@ export class AdminDashboardComponent implements OnInit {
       },
       (err) => {
         this.isLoading = false;
+      }
+    );
+
+    this.sharedService.courseResponseSubject.subscribe(
+      (data: CourseResponse) => {
+        this.courses.push(data);
       }
     );
   }

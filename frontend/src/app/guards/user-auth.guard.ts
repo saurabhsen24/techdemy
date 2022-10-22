@@ -27,6 +27,10 @@ export class UserAuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     const user = this.tokenStorageService.getUser();
+    if (!user) {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
     if (user && user.role === ROLE.USER) return true;
     this.router.navigateByUrl('/');
     return false;

@@ -16,9 +16,25 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
-  saveCourse(courseRequest: CourseRequest) {
+  saveCourse(course: CourseRequest, file: File) {
+    const formData = new FormData();
+    let courseRequest = {
+      courseName: course.courseName,
+      courseDescription: course.courseDescription,
+      category: course.category,
+      coursePrice: course.coursePrice,
+    };
+
+    console.debug(file);
+
+    const blob = new Blob([JSON.stringify(courseRequest)], {
+      type: 'application/json',
+    });
+    formData.append('courseRequest', blob);
+    formData.append('file', file);
+
     return this.http
-      .post<GenericResponse>(`${this.courseApi}/saveCourse`, courseRequest)
+      .post<CourseResponse>(`${this.courseApi}/saveCourse`, formData)
       .pipe(
         tap((res) => console.log(res)),
         catchError((errResponse) => throwError(errResponse.error))

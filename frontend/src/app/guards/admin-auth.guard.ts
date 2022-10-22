@@ -28,6 +28,10 @@ export class AdminAuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     const user = this.tokenStorageService.getUser();
+    if (!user) {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
     if (user && user.role === ROLE.ADMIN) return true;
     this.router.navigateByUrl('/admin');
     return false;
