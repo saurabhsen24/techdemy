@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CourseService {
 
-    void saveCourse(CourseRequestDto courseRequestDto);
+    CourseResponseDto saveCourse(CourseRequestDto courseRequestDto);
 
     CourseResponseDto getCourse(Long courseId);
 

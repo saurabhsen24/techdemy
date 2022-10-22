@@ -1,0 +1,128 @@
+<div class="modal fade" id="addCourseModal" tabIndex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <div class="modal-header">
+          <h5 class="modal-title course-heading">Create Course</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="courseName" class="form-label">Course Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="courseName"
+              name="courseName"
+              [(ngModel)]="courseRequest.courseName"
+              #courseName="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && !courseName.valid"
+            >
+              Course Name is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="category" class="form-label">Course Category</label>
+            <input
+              type="text"
+              class="form-control"
+              id="category"
+              name="category"
+              [(ngModel)]="courseRequest.category"
+              #category="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && !category.valid"
+            >
+              Category is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="courseDescription" class="form-label">
+              Course Description
+            </label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="courseDescription"
+              name="courseDescription"
+              rows="3"
+              [(ngModel)]="courseRequest.courseDescription"
+              #courseDescription="ngModel"
+              required
+            >
+            </textarea>
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && !courseDescription.valid"
+            >
+              Course Description is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="coursePrice" class="form-label">Course Price</label>
+            <input
+              type="number"
+              class="form-control"
+              id="coursePrice"
+              name="coursePrice"
+              [(ngModel)]="courseRequest.coursePrice"
+              #coursePrice="ngModel"
+              required
+            />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && !coursePrice.valid"
+            >
+              Course Price is required
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label for="formFile" class="form-label"> Upload File </label>
+            <input
+              class="form-control"
+              type="file"
+              id="file"
+              name="file"
+              (change)="uploadFile($event)"
+              [(ngModel)]="courseRequest.file"
+              #file="ngModel"
+            />
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="!f.value.file">
+            Course Image is required
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button class="btn btn-primary" type="submit">Add Course</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

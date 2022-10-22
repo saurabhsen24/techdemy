@@ -3,6 +3,7 @@ package com.techdemy.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -23,5 +24,7 @@ public class CourseRequestDto {
 
     @Positive(message = "Course price can't be negative or zero")
     private Double coursePrice;
+
+    private MultipartFile file;
 
 }

@@ -2,12 +2,14 @@ import { NumberFormatStyle } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Constants } from '../constants/Constants';
+import { CourseResponse } from '../models/responses/CourseResponse.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
   public cartCountSubscription = new Subject<number>();
+  public courseResponseSubject = new Subject<CourseResponse>();
 
   constructor() {}
 

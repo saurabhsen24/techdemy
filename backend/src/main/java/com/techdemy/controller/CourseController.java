@@ -10,9 +10,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,12 +33,14 @@ public class CourseController {
             @ApiResponse(code = 401, message = "You are not authorized"),
             @ApiResponse(code = 403, message = "You can not access this resource")
     })
-    @PostMapping(value = "/saveCourse")
+    @PostMapping(value = "/saveCourse", consumes = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.MULTIPART_FORM_DATA_VALUE })
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<GenericResponse> saveCourse(@Valid @RequestBody CourseRequestDto courseRequestDto){
+    public ResponseEntity<CourseResponseDto> saveCourse(@Valid @RequestPart("courseRequest") CourseRequestDto
+                                                                  courseRequestDto, @RequestPart MultipartFile file){
         log.info("Received request to save course {}", courseRequestDto.getCourseName());
-        courseService.saveCourse(courseRequestDto);
-        return ResponseEntity.ok(GenericResponse.buildGenericResponse("Course created successfully"));
+        courseRequestDto.setFile( file );
+        return ResponseEntity.ok( courseService.saveCourse(courseRequestDto) );
     }
 
     @ApiOperation(value = "Fetches course from db")

@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -29,6 +30,9 @@ import { ReviewComponent } from './component/review/review.component';
 import { CourseComponent } from './component/course/course.component';
 import { StarRatingComponent } from './component/star-rating/star-rating.component';
 import { EditReviewComponent } from './component/edit-review/edit-review.component';
+import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashboard.component';
+import { AddCourseComponent } from './component/add-course/add-course.component';
+import { EditCourseComponent } from './component/edit-course/edit-course.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,9 @@ import { EditReviewComponent } from './component/edit-review/edit-review.compone
     CourseComponent,
     StarRatingComponent,
     EditReviewComponent,
+    AdminDashboardComponent,
+    AddCourseComponent,
+    EditCourseComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +66,7 @@ import { EditReviewComponent } from './component/edit-review/edit-review.compone
     MatCardModule,
     MatFormFieldModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
     MatTooltipModule,
     FontAwesomeModule,
     AppRoutingModule,

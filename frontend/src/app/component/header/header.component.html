@@ -7,10 +7,15 @@
   <a class="btn" mat-button routerLink="/register" *ngIf="!isLoggedIn">
     <mat-icon class="me-1">person_add</mat-icon>Signup
   </a>
-  <a class="btn" mat-button routerLink="/user" *ngIf="isLoggedIn">
+  <a class="btn" mat-button *ngIf="isLoggedIn">
     <mat-icon class="me-1">person</mat-icon> {{ username }}
   </a>
-  <a class="btn" mat-button routerLink="/enrollments" *ngIf="isLoggedIn">
+  <a
+    class="btn"
+    mat-button
+    routerLink="/enrollments"
+    *ngIf="isLoggedIn && !isAdmin"
+  >
     <mat-icon class="me-1">menu_book</mat-icon> My Courses
   </a>
   <a class="btn" mat-button routerLink="/cart" *ngIf="isLoggedIn && !isAdmin">
@@ -19,7 +24,7 @@
     </mat-icon>
     Cart
   </a>
-  <a class="btn" mat-button routerLink="/createPost" *ngIf="isAdmin">
+  <a class="btn" mat-button (click)="addCourse()" *ngIf="isAdmin">
     <mat-icon class="me-1">add_circle</mat-icon>Create Post
   </a>
 
@@ -27,3 +32,5 @@
     <mat-icon class="me-1">logout</mat-icon>Logout
   </button>
 </mat-toolbar>
+
+<app-add-course></app-add-course>

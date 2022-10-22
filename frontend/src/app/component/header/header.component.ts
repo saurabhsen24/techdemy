@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { AddCourseComponent } from '../add-course/add-course.component';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,10 @@ export class HeaderComponent implements OnInit {
   isAdmin: Boolean = false;
   username: string = '';
   cartCount: Number = 0;
+
+  @ViewChild(AddCourseComponent) addCourseComponent:
+    | AddCourseComponent
+    | undefined;
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -60,6 +65,10 @@ export class HeaderComponent implements OnInit {
   logOutUser() {
     this.tokenStorage.logOut();
     this.router.navigateByUrl('/login');
+  }
+
+  addCourse() {
+    this.addCourseComponent?.showCreateCourseModal();
   }
 
   ngOnDestroy(): void {
