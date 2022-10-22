@@ -3,5 +3,6 @@ export interface Cart {
   courseDescription: string;
   courseId: Number;
   courseName: string;
+  courseImage: string;
   coursePrice: Number;
 }

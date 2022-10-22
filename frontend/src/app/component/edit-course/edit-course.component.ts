@@ -17,6 +17,8 @@ export class EditCourseComponent implements OnInit {
   @Input()
   courseResponse: CourseResponse | undefined;
 
+  isLoading = true;
+
   @Output() editCourseEvent = new EventEmitter<CourseResponse>();
 
   courseRequest = {
@@ -39,12 +41,15 @@ export class EditCourseComponent implements OnInit {
       .updateCourse(this.courseResponse!!.courseId, f.value)
       .subscribe(
         (response: GenericResponse) => {
+          this.isLoading = false;
           this.messageService.showToastMessage('success', response.message);
           let editCourseResponse = Object.assign({}, this.courseResponse);
           this.editCourseEvent.emit(editCourseResponse);
+          f.reset();
           $('#editCourseModal').modal('hide');
         },
         (err: ErrorResponse) => {
+          this.isLoading = false;
           this.messageService.showErrorMessage(err);
           $('#editCourseModal').modal('hide');
         }

@@ -7,7 +7,8 @@
   <div class="m-3" *ngFor="let course of enrolledCourses; let i = index">
     <div class="card course-card shadow">
       <img
-        src="https://img-c.udemycdn.com/course/240x135/4364396_6a81.jpg"
+        [src]="course.courseImage"
+        height="250px"
         class="card-img-top"
         alt="Card Image"
       />

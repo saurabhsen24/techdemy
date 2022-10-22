@@ -51,6 +51,7 @@ export class AddCourseComponent implements OnInit {
     this.courseService.saveCourse(f.value, this.courseRequest.file!!).subscribe(
       (response: CourseResponse) => {
         this.sharedService.courseResponseSubject.next(response);
+        f.reset();
         this.messageService.showToastMessage(
           'success',
           'Course successfully saved'

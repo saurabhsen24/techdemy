@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -65,6 +66,7 @@ import { EditCourseComponent } from './component/edit-course/edit-course.compone
     MatCardModule,
     MatFormFieldModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
     MatTooltipModule,
     FontAwesomeModule,
     AppRoutingModule,

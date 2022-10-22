@@ -78,7 +78,6 @@ export class ReviewComponent implements OnInit {
           console.debug(data);
         });
     });
-
     this.loggedInUser = this.tokenStorage.getUser()!!.userName;
   }
 
@@ -100,10 +99,12 @@ export class ReviewComponent implements OnInit {
     this.reviews = newReviews;
     this.reviewService.postReview(this.reviewRequest, this.courseId).subscribe(
       (response: GenericResponse) => {
+        this.isLoading = false;
         this.messageService.showToastMessage('success', response.message);
         reviewForm.reset();
       },
       (errResponse: ErrorResponse) => {
+        this.isLoading = false;
         Swal.fire({
           icon: 'error',
           text: 'You have already posted review',
