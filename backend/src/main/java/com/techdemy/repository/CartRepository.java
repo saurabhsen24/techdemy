@@ -20,8 +20,8 @@ public interface CartRepository extends JpaRepository<Cart,Long> {
     void deleteByUserIdAndCourseId(@Param("userId") Long userId, @Param("courseId") Long courseId);
 
     @Query(value = "SELECT c.course_id as courseId,c.course_name as courseName,c.course_description as courseDescription," +
-            "c.course_price as coursePrice, c.author as author FROM courses c INNER JOIN cart ct ON c.course_id = ct.course_id " +
-            "WHERE ct.user_id=:userId",nativeQuery = true)
+            "c.course_price as coursePrice,c.course_image as courseImage,c.author as author FROM courses c INNER JOIN " +
+            "cart ct ON c.course_id = ct.course_id WHERE ct.user_id=:userId",nativeQuery = true)
     List<CartDto> getAllCartItems( @Param("userId") Long userId );
 
     @Query(value = "SELECT COUNT(*) FROM cart WHERE user_id=:userId", nativeQuery = true)
