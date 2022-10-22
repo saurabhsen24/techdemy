@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { ROLE } from 'src/app/guards/user-auth.guard';
 import { CourseResponse } from 'src/app/models/responses/CourseResponse.model';
 import { ErrorResponse } from 'src/app/models/responses/ErrorResponse.model';
 import { LoginResponse } from 'src/app/models/responses/LoginResponse.model';
@@ -54,10 +55,11 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.userNameListner.next(loginResponse.userName);
         this.isAdmin = this.tokenStorage.checkAdmin();
         this.tokenStorage.adminRoleListener.next(this.isAdmin);
-        this.getEnrolledCourses();
-        if (this.isAdmin) {
+
+        if (loginResponse.role === ROLE.ADMIN) {
           this.router.navigateByUrl('/admin');
         } else {
+          this.getEnrolledCourses();
           this.router.navigateByUrl('/');
         }
 

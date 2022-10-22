@@ -1,7 +1,7 @@
 <div class="modal fade" id="editCourseModal" tabIndex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form>
+      <form #f="ngForm" (ngSubmit)="updateCourse(f)">
         <div class="modal-header">
           <h5 class="modal-title course-heading">Update Course</h5>
           <button
@@ -19,19 +19,37 @@
               class="form-control"
               id="courseName"
               name="courseName"
+              [(ngModel)]="courseResponse!!.courseName"
+              #courseName="ngModel"
               required
             />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && !courseName.valid"
+            >
+              Course Name is required
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="courseName">Course Category</label>
+            <label for="category">Course Category</label>
             <input
               type="text"
               class="form-control"
-              id="courseCategory"
-              name="coursCategory"
+              id="category"
+              name="category"
+              [(ngModel)]="courseResponse!!.category"
+              #category="ngModel"
               required
             />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && !category.valid"
+            >
+              Category is required
+            </div>
           </div>
 
           <div class="form-group">
@@ -42,9 +60,18 @@
               id="courseDescription"
               name="courseDescription"
               rows="3"
+              [(ngModel)]="courseResponse!!.courseDescription"
+              #courseDescription="ngModel"
               required
             >
             </textarea>
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && !courseDescription.valid"
+            >
+              Course Description is required
+            </div>
           </div>
 
           <div class="form-group">
@@ -54,8 +81,17 @@
               class="form-control"
               id="coursePrice"
               name="coursePrice"
+              [(ngModel)]="courseResponse!!.coursePrice"
+              #coursePrice="ngModel"
               required
             />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && !coursePrice.valid"
+            >
+              Course Price is required
+            </div>
           </div>
         </div>
 

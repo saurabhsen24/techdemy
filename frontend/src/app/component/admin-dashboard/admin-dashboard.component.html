@@ -29,7 +29,11 @@
       </div>
 
       <div class="text-center mb-5">
-        <button type="button" class="btn btn-danger me-2" (click)="editCourse()">
+        <button
+          type="button"
+          class="btn btn-danger me-2"
+          (click)="editCourse(course)"
+        >
           <fa-icon [icon]="faUpdateIcon" class="ms-auto me-auto"></fa-icon>
           Update
         </button>
@@ -45,4 +49,6 @@
     </div>
   </div>
 </div>
-<app-edit-course></app-edit-course>
+<app-edit-course [courseResponse]="courseResponse" (editCourseEvent)="onEditCourseEvent($event)"
+*ngIf="courseResponse">
+</app-edit-course>

@@ -48,7 +48,15 @@ export class CourseService {
     );
   }
 
-  updateCourse(courseId: Number, courseRequest: CourseRequest) {
+  updateCourse(
+    courseId: Number,
+    courseRequest: {
+      courseName: string;
+      category: string;
+      courseDescription: string;
+      coursePrice: number;
+    }
+  ) {
     return this.http
       .put<GenericResponse>(`${this.courseApi}/${courseId}`, courseRequest)
       .pipe(

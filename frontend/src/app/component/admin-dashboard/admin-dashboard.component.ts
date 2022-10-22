@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   faEdit,
   faStar,
@@ -26,6 +32,11 @@ export class AdminDashboardComponent implements OnInit {
   faStarIcon = faStar;
   faTagIcon = faTag;
   isLoading = true;
+
+  @Output()
+  public courseEvent = new EventEmitter<CourseResponse>();
+
+  courseResponse: CourseResponse | undefined;
 
   @ViewChild(EditCourseComponent) editCourseComponent:
     | EditCourseComponent
@@ -84,8 +95,17 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  editCourse() {
+  editCourse(course: CourseResponse) {
+    this.courseResponse = Object.assign({}, course);
+    this.courseEvent.emit(this.courseResponse);
     this.editCourseComponent?.showEditCourseModal();
+  }
+
+  onEditCourseEvent(editCourseResponse: CourseResponse) {
+    const index = this.courses.findIndex(
+      (c) => c.courseId === editCourseResponse.courseId
+    );
+    this.courses[index] = editCourseResponse;
   }
 
   getArray(n: number): Array<number> {
