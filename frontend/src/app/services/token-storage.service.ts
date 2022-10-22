@@ -17,6 +17,7 @@ export class TokenStorageService {
     sessionStorage.clear();
     this.adminRoleListener.next(false);
     this.authStatusListener.next(false);
+    localStorage.clear();
   }
 
   saveUser(userData: LoginResponse) {

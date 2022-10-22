@@ -1,13 +1,20 @@
-.example-card {
-  max-width: 400px;
-  height: 450px;
-}
-
 .course-card {
   width: 400px;
-  height: 450px;
+  height: 500px;
 }
 
 .card-title {
   font-size: 1.5em;
 }
+
+.course-price {
+  color: #a435f0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.star-icon {
+  padding-left: 0px;
+  color: #e59819;
+}
+

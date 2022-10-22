@@ -1,14 +1,35 @@
+<mat-progress-bar
+  mode="indeterminate"
+  color="accent"
+  *ngIf="isLoading"
+></mat-progress-bar>
 <div class="container d-flex flex-wrap mt-5">
   <div class="m-3" *ngFor="let course of courses; let i = index">
     <div class="card course-card shadow">
       <img
-        src="https://img-c.udemycdn.com/course/240x135/4364396_6a81.jpg"
+        [src]="course.courseImage"
+        height="250px"
         class="card-img-top"
         alt="Card Image"
       />
       <div class="card-body">
         <h5 class="card-title">{{ course.courseName }}</h5>
         <p class="card-text">{{ course.courseDescription }}</p>
+        <div class="course-rating mb-2">
+          <fa-icon
+            [icon]="faStarIcon"
+            class="star-icon"
+            *ngFor="let item of getArray(+course.courseRating)"
+          >
+          </fa-icon>
+        </div>
+        <div class="course-price">
+          {{ course.coursePrice.toString() | currency: "INR" }}
+          <fa-icon [icon]="faTagIcon" class="ms-auto me-auto"></fa-icon>
+        </div>
+        <div class="course-author mt-2">
+          <b>Created By {{ course.author }}</b>
+        </div>
       </div>
 
       <div class="text-center mb-5">

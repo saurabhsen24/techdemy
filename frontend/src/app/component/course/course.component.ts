@@ -14,6 +14,7 @@ export class CourseComponent implements OnInit {
   faStarIcon = faStar;
   course: CourseResponse | null = null;
   numberOfStars: Array<Number> = new Array();
+  isLoading = true;
 
   constructor(
     private courseService: CourseService,
@@ -29,6 +30,7 @@ export class CourseComponent implements OnInit {
           .getCourse(+courseId)
           .subscribe((data: CourseResponse) => {
             this.course = data;
+            this.isLoading = false;
             this.numberOfStars = this.sharedService.numberOfSequence(
               data.courseRating
             );

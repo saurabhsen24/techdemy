@@ -1,10 +1,7 @@
 <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading">
 </mat-progress-bar>
-<div class="mt-5">
-  <h1 class="ml-5 my-courses">My Courses</h1>
-</div>
 <div class="container d-flex flex-wrap mt-5">
-  <div class="m-3" *ngFor="let course of enrolledCourses; let i = index">
+  <div class="m-3" *ngFor="let course of courses; let i = index">
     <div class="card course-card shadow">
       <img
         [src]="course.courseImage"
@@ -31,15 +28,31 @@
           <b>Created By {{ course.author }}</b>
         </div>
       </div>
-      <div class="d-grid m-3">
+
+      <div class="text-center mb-5">
         <button
           type="button"
-          class="btn btn-dark"
-          routerLink="/course/{{ course.courseId }}"
+          class="btn btn-danger me-2"
+          (click)="editCourse(course)"
         >
-          Go to course
+          <fa-icon [icon]="faUpdateIcon" class="ms-auto me-auto"></fa-icon>
+          Update
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger me-2"
+          (click)="deleteCourse(+course.courseId)"
+        >
+          <fa-icon [icon]="faDeleteIcon" class="ms-auto me-auto"></fa-icon>
+          Delete
         </button>
       </div>
     </div>
   </div>
 </div>
+<app-edit-course
+  [courseResponse]="courseResponse"
+  (editCourseEvent)="onEditCourseEvent($event)"
+  *ngIf="courseResponse"
+>
+</app-edit-course>
