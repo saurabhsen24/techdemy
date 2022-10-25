@@ -1,6 +1,6 @@
 # Techdemy App
 
-Its a educational website where people can buy course to enhance their skill.
+Its a educational website where people can buy course to enhance their skill. Most of the features of this app is inspired from udemy like adding courses to the cart, buying courses and review it.
 
 ## App Demo Video
 
