@@ -4,7 +4,7 @@ Its a educational website where people can buy course to enhance their skill.
 
 ## App Demo Video
 
-[![Alt text](https://i9.ytimg.com/vi/hHPZYqaje-M/mq2.jpg?sqp=CLjvspkG&rs=AOn4CLBoEI5CcvQlAr5MK1yCxCUhK27spQ)](https://youtu.be/IvFDlLHi0r0)
+[![Alt text](https://i9.ytimg.com/vi/IvFDlLHi0r0/mq2.jpg?sqp=CNzm4JoG&rs=AOn4CLDm7ELaVBlrG5YE6vzBdZ9sKj_4Ww)](https://youtu.be/IvFDlLHi0r0)
 
 ## Clone or Download this repository
 
