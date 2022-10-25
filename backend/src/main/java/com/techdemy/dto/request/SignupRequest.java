@@ -1,5 +1,6 @@
 package com.techdemy.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 public class SignupRequest {
 
+    @JsonAlias({"username", "userName"})
     @NotEmpty(message = "Username can't be empty")
     private String username;
 

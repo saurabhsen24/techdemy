@@ -113,6 +113,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getArray(n: number): Array<number> {
-    return Array(n);
+    return Array(Math.round(n));
   }
 }
