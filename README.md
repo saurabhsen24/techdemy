@@ -33,7 +33,7 @@ Its a educational website where people can buy course to enhance their skill.
 - Java
 - Spring Boot
 - Spring Security
-- Spring REST
+- Spring Data JPA
 - MySQL
 - Maven
 
